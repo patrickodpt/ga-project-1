@@ -17,7 +17,22 @@ let deck = {
 
 function deal() {
   // called on click of deal button
-  // returns card
+  // returns card from deck
+
+  suitRoll() => {Math.floor(Math.random() * 4)} //output will be between 0-3
+  cardRoll() => {Math.floor(Math.random() * 14)} //output will be between 0-13
+
+  let currentSuit = suitRoll()
+  if (currentSuit <= 0) {
+    if ()
+      return deck.spade
+  } elseif () {
+
+  } elseif () {
+
+  } elseif () {
+
+  }
 }
 
 if (pHand.length < 2){
