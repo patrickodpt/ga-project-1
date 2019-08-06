@@ -7,11 +7,13 @@ function startGame() {
 let pHand = []
 let dHand = []
 let deck = {
-  spade: ,
-  heart: ,
-  diamond: ,
-  club:
+  spade: ['1','2','3','4','5','6','7','8','9','10','J','Q','K','A'],
+  heart: ['1','2','3','4','5','6','7','8','9','10','J','Q','K','A'],
+  diamond: ['1','2','3','4','5','6','7','8','9','10','J','Q','K','A'],
+  club: ['1','2','3','4','5','6','7','8','9','10','J','Q','K','A']
 }
+
+
 
 function deal() {
   // called on click of deal button
@@ -40,7 +42,7 @@ function dealerPlays () {
   // else hit
 }
 // after dealerPlays check who wins
-function winCheck() {
+function winCheck(pHandValue, dHandValue) {
   // compare value of dHand to pHand
   // if dHand > pHand: dealer wins
   // if dHand < pHand: player wins
