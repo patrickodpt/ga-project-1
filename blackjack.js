@@ -44,15 +44,17 @@ function dealCard() {
     dealtCard = deck.club[currentCard];
     deck.club.splice(currentCard, 1);
   } else {
-    console.log("something in random rolls went wrong,");
+    console.log("I don't know where I am, but I shouldn't be here")
   }
+
   // console.log(dealtCard) // ::::TEST::::
   if (dealtCard) {
-    return dealtCard;
-  } else {
-    console.log("I ran again")
-    dealCard()
+    console.log(dealtCard) //strangely this returns a card if dealCard is called again.
+    return dealtCard; //yet this consistently returns "undefined"
   }
+
+  console.log("I ran again")
+  dealCard()
 };
 
 console.log(dealCard())
