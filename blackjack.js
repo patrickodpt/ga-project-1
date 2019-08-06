@@ -48,6 +48,7 @@ function dealCard() {
   }
 
   // console.log(dealtCard) // ::::TEST::::
+  // TODO:::: BELOW REMAINS BROKEN AS OF NOW.
   if (dealtCard) {
     console.log(dealtCard) //strangely this returns a card if dealCard is called again.
     return dealtCard; //yet this consistently returns "undefined"
