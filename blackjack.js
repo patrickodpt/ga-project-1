@@ -14,33 +14,29 @@ let deck = {
 }
 
 
+const suitRoll = () => {return Math.floor(Math.random() * 4)}//output will be between 0-3
+const cardRoll = () => {return Math.floor(Math.random() * 13)} //output will be between 0-12
 
 function deal() {
   // called on click of deal button
   // returns card from deck
 
-  suitRoll() => {return Math.floor(Math.random() * 4)}//output will be between 0-3
-  cardRoll() => {return Math.floor(Math.random() * 13)} //output will be between 0-12
-  console.log("This is a suitRoll test: ", suitRoll())
-  console.log("This is a suitRoll test: ", suitRoll())
-  console.log("This is a suitRoll test: ", suitRoll())
-  console.log("This is a cardRoll test: ", cardRoll())
-  console.log("This is a cardRoll test: ", cardRoll())
-  console.log("This is a cardRoll test: ", cardRoll())
+  let currentSuit = suitRoll()
+  if (currentSuit < 1) {
+      return deck.spade[0].pop()
+  } elseif (currentSuit > 0 && currentSuit <= 2) {
 
-  // let currentSuit = suitRoll()
-  // if (currentSuit <= 0) {
-  //     return deck.spade[0].pop()
-  // } elseif (currentSuit > 0 && currentSuit <= 1) {
-  //
-  // } elseif (currentSuit > 1 && currentSuit <= 2) {
-  //
-  // } elseif (currentSuit > 2 && currentSuit <= 3) {
-  //
-  // } else {
-  //   console.log("something in random rolls went wrong,")
-  // }
+  } elseif (currentSuit > 1 && currentSuit <= 2) {
+
+  } elseif (currentSuit > 2 && currentSuit <= 3) {
+
+  } else {
+    console.log("something in random rolls went wrong,")
+  }
 }
+
+deal()
+
 //
 // if (pHand.length < 2){
 //   // call deal() to give card to pHand.push
