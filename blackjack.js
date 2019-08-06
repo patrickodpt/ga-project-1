@@ -2,10 +2,9 @@
 function startGame() {
   //on button click load gameboard
 }
-
 //initialize global objects/arrays
-let pHand = [];
-let dHand = [];
+let playerHand = [];
+let dealerHand = [];
 let deck = {
   spade: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
   heart: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
@@ -51,7 +50,7 @@ function dealCard() {
   // TODO:::: BELOW REMAINS BROKEN AS OF NOW.
   if (dealtCard) {
     console.log(dealtCard) //strangely this returns a card if dealCard is called again.
-    return dealtCard; //yet this consistently returns "undefined"
+    return dealtCard; //yet this consistently returns "undefined" if run a dealCard() is called below
   }
 
   console.log("I ran again")
@@ -70,12 +69,24 @@ console.log(dealCard())
 console.log(dealCard())
 console.log(dealCard())
 console.log(dealCard())
-
-
 console.log(deck)
 
 
-//
+function dealStartingHands() {
+  do {
+    playerHand.push(dealCard())
+  } while (playerHand.length < 2)
+  do {
+    dealerHand.push(dealCard())
+  } while (dealerHand.length < 2)
+}
+
+console.log("Player Hand before Deal:", playerHand)
+console.log("Dealer Hand before Deal:", dealerHand)
+dealStartingHands()
+console.log("Player Hand after Deal:", playerHand)
+console.log("Dealer Hand after Deal:", dealerHand)
+
 // if (pHand.length < 2){
 //   // call deal() to give card to pHand.push
 // } elseif (dHand.length <2) {
