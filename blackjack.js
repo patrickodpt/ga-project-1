@@ -12,48 +12,62 @@ let deck = {
   diamond: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
   club: ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
 };
-
-
-console.log(deck.spade)
-deck.spade.splice(5, 1)
-console.log(deck.spade)
-
-console.log(deck.heart[12])
-
-
-const suitRoll = () => {return Math.floor(Math.random() * 5)}//output will be between 0-4
+// ::::TEST::::
+// console.log(deck.spade)
+// deck.spade.splice(5, 1)
+// console.log(deck.spade)
+// console.log(deck.heart[12])
+const suitRoll = () => {return Math.floor(Math.random() * 4)}//output will be between 0-3
 const cardRoll = () => {return Math.floor(Math.random() * 13)} //output will be between 0-12 (13 nums)
 
+//function to randomly deal card from deck object
 function dealCard() {
   // called on click of deal button
   // returns card from deck
-  let currentSuit = suitRoll();
+  let currentSuit = suitRoll(); //returns num between 0-4 which will be used to select suit
+  console.log("Current Suit: ", currentSuit) // ::::TEST::::
   let currentCard = cardRoll(); //returns num between 0-11 which will be num index
-  let dealtCard;
-  if (currentSuit >= 0 && currentSuit < 1) {
-    dealtCard = deck.spade[currentCard]; //store randomly selected card in variable
-    return deck.spade.splice(currentCard, 1); //remove selected card from deck object
-  } else if (currentSuit >= 1 && currentSuit < 2) {
-    dealtCard = deck.heart[currentCard];
-    return deck.heart.splice(currentCard, 1);
-  } else if (currentSuit >= 2 && currentSuit < 3) {
-    dealtCard = deck.diamond[currentCard];
-    return deck.diamond.splice(currentCard, 1);
-  } else if (currentSuit >= 3 && currentSuit < 4) {
-    dealtCard = deck.club[currentCard];
-    return deck.club.splice(currentCard, 1);
-  } else {
+  console.log("Current Card: ", currentCard) // ::::TEST::::
 
+  let dealtCard; //initalize card to be dealt
+
+  if (currentSuit == 0) {
+    dealtCard = deck.spade[currentCard]; //store randomly selected card in variable
+    deck.spade.splice(currentCard, 1); //remove selected card from deck object
+  } else if (currentSuit == 1) {
+    dealtCard = deck.heart[currentCard];
+    deck.heart.splice(currentCard, 1);
+  } else if (currentSuit == 2) {
+    dealtCard = deck.diamond[currentCard];
+    deck.diamond.splice(currentCard, 1);
+  } else if (currentSuit == 3) {
+    dealtCard = deck.club[currentCard];
+    deck.club.splice(currentCard, 1);
+  } else {
     console.log("something in random rolls went wrong,");
   }
-
-  return dealtCard;
+  // console.log(dealtCard) // ::::TEST::::
+  if (dealtCard) {
+    return dealtCard;
+  } else {
+    console.log("I ran again")
+    dealCard()
+  }
 };
 
 console.log(dealCard())
 console.log(dealCard())
 console.log(dealCard())
 console.log(dealCard())
+console.log(dealCard())
+console.log(dealCard())
+console.log(dealCard())
+console.log(dealCard())
+console.log(dealCard())
+console.log(dealCard())
+console.log(dealCard())
+console.log(dealCard())
+
 
 console.log(deck)
 
