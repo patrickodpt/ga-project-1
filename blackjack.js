@@ -1,41 +1,44 @@
-//function
+//function to start game
 function startGame() {
   //on button click load gameboard
 }
 
 //initialize global objects/arrays
-let pHand = []
-let dHand = []
+let pHand = [];
+let dHand = [];
 let deck = {
   spade: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
   heart: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
   diamond: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
   club: ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
-}
+};
 
 
-const suitRoll = () => {return Math.floor(Math.random() * 4)}//output will be between 0-3
-const cardRoll = () => {return Math.floor(Math.random() * 13)} //output will be between 0-12
+const suitRoll = () => {return Math.floor(Math.random() * 5)}//output will be between 0-4
+const cardRoll = () => {return Math.floor(Math.random() * 12)} //output will be between 0-11 (12 nums)
 
-function deal() {
+function dealCard() {
   // called on click of deal button
   // returns card from deck
-
   let currentSuit = suitRoll()
-  if (currentSuit < 1) {
-      return deck.spade[0].pop()
-  } elseif (currentSuit > 0 && currentSuit <= 2) {
+  let currentCard = cardRoll() //returns num between 0-11 which will be num index
 
-  } elseif (currentSuit > 1 && currentSuit <= 2) {
+  if (currentSuit >= 0 && currentSuit < 1) {
+      //get card from spade array
 
-  } elseif (currentSuit > 2 && currentSuit <= 3) {
-
+      return deck.spade
+  } elseif (currentSuit >= 1 && currentSuit < 2) {
+      //get card from heart array
+  } elseif (currentSuit >= 2 && currentSuit < 3) {
+      //get card from diamond array
+  } elseif (currentSuit >= 3 && currentSuit < 4) {
+    //get card from club array
   } else {
-    console.log("something in random rolls went wrong,")
+    console.log("something in random rolls went wrong,");
   }
-}
+};
 
-deal()
+dealCard()
 
 //
 // if (pHand.length < 2){
