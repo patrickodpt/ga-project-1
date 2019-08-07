@@ -71,7 +71,7 @@ console.log(dealCard())
 console.log(dealCard())
 console.log(deck)
 
-
+//gives two cards to each hand to start game
 function dealStartingHands() {
   do {
     playerHand.push(dealCard())
@@ -80,34 +80,42 @@ function dealStartingHands() {
     dealerHand.push(dealCard())
   } while (dealerHand.length < 2)
 }
-
-console.log("Player Hand before Deal:", playerHand)
-console.log("Dealer Hand before Deal:", dealerHand)
+//initial hands are dealt here.
 dealStartingHands()
-console.log("Player Hand after Deal:", playerHand)
-console.log("Dealer Hand after Deal:", dealerHand)
 
-// if (pHand.length < 2){
-//   // call deal() to give card to pHand.push
-// } elseif (dHand.length <2) {
-//   // call deal() to give card to dHand.push
-// }
-//
-//
-// function hit() {
-//   //get card from deck
-//   //append card to pHand
-// }
-//
+console.log("Calling parseInt(.pop()) on dealerHand returns: ", typeof(parseInt(dealerHand.pop())))
+console.log("Calling parseInt(.pop()) on dealerHand returns: ", parseInt(dealerHand.pop()))
+
+//define function to be called when hit button is clicked
+function hit() {
+  playerHand.push(dealCard())
+}
+
+//this function only calls a single func, thus unnecessary
 // function stand() {
-//   //run dealers play
+//    //run dealers play
+//    dealerPlays()
 // }
+
+//evaluate hand
+function evaluateHand (handToEvaluate) {
+  // check value of dealer hand
+  let handValue = 0;
+  //evaluateCard hold string value of card from hand
+  let evaluateCard = handToEvaluate.pop();
+
+  //check if parsing returns number, K Q J, or A.
+  if (typeof(parseInt(evaluateCard)) == number) {
+    handValue += parseInt(evaluateCard);
+  } else if (evaluateCard == 'K' || evaluateCard == 'Q' || evaluateCard == 'J') {
+    handValue += 10;
+  } else if (evaluateCard == 'A') {
+    //need to write logic to handle Ace situation. May be best to write external function for this.
+  }
+  // if value is >17 stay
+  // else hit
+}
 //
-// function dealerPlays () {
-//   // check value of dealer hand
-//   // if value is >17 stay
-//   // else hit
-// }
 // // after dealerPlays check who wins
 // function winCheck(pHandValue, dHandValue) {
 //   // compare value of dHand to pHand
