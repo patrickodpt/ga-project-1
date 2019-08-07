@@ -1,6 +1,5 @@
 //function to start game
 function startGame() {
-  //on button click load gameboard
 }
 //initialize global objects/arrays/functions
 let playerHand = [[],[]]; // first array is value, second array is suit
@@ -13,15 +12,15 @@ let deck = {
 };
 const suitRoll = () => {return Math.floor(Math.random() * 4)}//output will be between 0-3
 const cardRoll = () => {return Math.floor(Math.random() * 13)} //output will be between 0-12 (13 nums)
+let finalDealerHandValue;
+let finalPlayerHandValue;
 
 //function to randomly deal card from deck object
 function dealCard(targetHand) {
   // called on click of deal button
   // returns card from deck
   let currentSuit = suitRoll(); //returns num between 0-4 which will be used to select suit
-  // console.log("Current Suit: ", currentSuit) // ::::TEST::::
   let currentCard = cardRoll(); //returns num between 0-11 which will be num index
-  // console.log("Current Card: ", currentCard) // ::::TEST::::
   let dealtCardValue; //initalize card to be dealt VALUE
   let dealtCardSuit;
   if (currentSuit == 0) {
@@ -41,7 +40,7 @@ function dealCard(targetHand) {
     dealtCardValue = deck.club[currentCard];
     deck.club.splice(currentCard, 1);
   } else {
-    console.log("I don't know where I am, but I shouldn't be here")
+    console.log("I shouldn't be here")
   }
 
   if (dealtCardValue) {
@@ -54,17 +53,6 @@ function dealCard(targetHand) {
   return dealCard(targetHand)
 };
 
-//::::TEST::::
-// console.log(deck)
-// for (let i = 0; i < 8; i++) {
-//   console.log(dealCard(dealerHand))
-//   console.log(dealCard(playerHand))
-//   console.log("Dealer hand: ", dealerHand)
-//   console.log("Player hand: ", playerHand)
-// }
-// console.log(deck)
-// ::::TEST::::
-
 //gives two cards to each hand to start game
 function dealStartingHands() {
   do {
@@ -74,17 +62,18 @@ function dealStartingHands() {
     dealCard(dealerHand)
   } while (dealerHand[0].length < 2)
 }
+
 //initial hands are dealt here.
 dealStartingHands()
 
-// // ::::TEST::::
-// console.log("dealerHand is: ", dealerHand)
-// console.log("playerHand is: ", playerHand)
-// // ::::TEST::::
+console.log("Intial Player Hand is: ", playerHand[0])
+console.log("Visible Dealer Card is: ", dealerHand[0][0])
 
 //define function to be called when hit button is clicked
 function hit(handToHit) {
+  console.log("hand pre-hit: ", handToHit)
   dealCard(handToHit)
+  console.log("hand post-hit: ", handToHit)
 }
 
 //evaluate hand ::::TODO:::: possibly doing too much with this.
@@ -112,21 +101,20 @@ function evaluateHand(handToEvaluate) {
   return handValue;
 }
 
-function playerPlays() {
-  let initialHandValue = evaluateHand(playerHand)
-  console.log("Initial Hand Value: ", initialHandValue)
-  //get input form user to hit or stand?
-  //if hit
-  // hit(playerHand)
-  //if stand
-  // run dealerPlays
-}
-
-playerPlays()
+document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
+// document.querySelector('button').addEventListener('click', function() {console.log("I WAS CLICK")})
+document.querySelector('#stand').addEventListener('click', () => {
+  finalDealerHandValue = dealerPlays();
+  finalPlayerHandValue = evaluateHand(playerHand);
+  winCheck(finalDealerHandValue, finalPlayerHandValue);
+})
 
 
-console.log("dealerHand is: ", dealerHand)
-console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
+// //::::TEST::::
+// console.log("dealerHand is: ", dealerHand)
+// console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
+// //::::TEST::::
+
 
 //write dealerPlays function
 function dealerPlays() {
@@ -136,19 +124,23 @@ function dealerPlays() {
     inPlayHandValue = evaluateHand(dealerHand);
   }
   if (inPlayHandValue >= 17 && inPlayHandValue < 22) {
-    console.log("The dealer stands. Total hand value: ", inPlayHandValue)
-    return inPlayHandValue
+    console.log("The dealer stands. Total hand value: ", inPlayHandValue);
   } else if (inPlayHandValue > 21) {
-    console.log("The dealer busts with a hand value of: ", inPlayHandValue)
+    console.log("The dealer busts with a hand value of: ", inPlayHandValue);
+    inPlayHandValue = 0; //sets value to 0 to prevent win
   }
+  return inPlayHandValue;
 }
 
-let finalDealerHandValue = dealerPlays()
-let finalPlayerHandValue =
 // after dealerPlays check who wins
-function winCheck(pHandValue, dHandValue) {
+function winCheck(dealerHandValue, playerHandValue) {
   // compare value of dHand to pHand
   // if dHand > pHand: dealer wins
-  // if dHand < pHand: player wins
-  // if dHand == pHand: timeout, no one wins / tie
+  if (dealerHandValue > playerHandValue) {
+    console.log("dealer wins")
+  } else if (dealerHandValue < playerHandValue) {
+    console.log("player wins")
+  } else if (dealerHandValue == playerHandValue) {
+    console.log("It's a tie!")
+  }
 }
