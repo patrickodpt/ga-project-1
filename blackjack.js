@@ -74,6 +74,15 @@ function hit(handToHit) {
   console.log("hand pre-hit: ", handToHit)
   dealCard(handToHit)
   console.log("hand post-hit: ", handToHit)
+  checkBust(handToHit)
+}
+
+//NEED TO WRITE BUST CONDITION::::::::::::::::
+function checkBust(handToCheck) {
+  let bust;
+  if (evaluateHand(handToCheck) > 21) {
+    bust = true;
+  } 
 }
 
 //evaluate hand ::::TODO:::: possibly doing too much with this.
