@@ -3,8 +3,8 @@ function startGame() {
   //on button click load gameboard
 }
 //initialize global objects/arrays/functions
-let playerHand = [[],[]];
-let dealerHand = [[],[]];
+let playerHand = [[],[]]; // first array is value, second array is suit
+let dealerHand = [[],[]]; // cards are related by reference
 let deck = {
   spade: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
   heart: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
@@ -55,111 +55,100 @@ function dealCard(targetHand) {
 };
 
 //::::TEST::::
-console.log(deck)
-for (let i = 0; i < 8; i++) {
-  console.log(dealCard(dealerHand))
-  console.log(dealCard(playerHand))
-  console.log("Dealer hand: ", dealerHand)
-  console.log("Player hand: ", playerHand)
-}
-console.log(deck)
+// console.log(deck)
+// for (let i = 0; i < 8; i++) {
+//   console.log(dealCard(dealerHand))
+//   console.log(dealCard(playerHand))
+//   console.log("Dealer hand: ", dealerHand)
+//   console.log("Player hand: ", playerHand)
+// }
+// console.log(deck)
 // ::::TEST::::
 
-//TEMPORARY COMMENT OUT OF EVERYTHING BELOW TO SOLVE DEALING WITH SUIT
+//gives two cards to each hand to start game
+function dealStartingHands() {
+  do {
+    dealCard(playerHand)
+  } while (playerHand[0].length < 2)
+  do {
+    dealCard(dealerHand)
+  } while (dealerHand[0].length < 2)
+}
+//initial hands are dealt here.
+dealStartingHands()
 
-//
-// //gives two cards to each hand to start game
-// function dealStartingHands() {
-//   do {
-//     playerHand[0].push(dealCard())
-//   } while (playerHand[0].length < 2)
-//   do {
-//     dealerHand[0].push(dealCard())
-//   } while (dealerHand[0].length < 2)
-// }
-// //initial hands are dealt here.
-// dealStartingHands()
-//
 // // ::::TEST::::
-// // console.log("dealerHand is: ", dealerHand)
-// // console.log("playerHand is: ", playerHand)
-// // ::::TEST::::
-//
-// //define function to be called when hit button is clicked
-// function hit(handToHit) {
-//   handToHit.push(dealCard())
-// }
-//
-// // ::::TEST::::
-// // console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
-// // console.log("Player Hand Value: ", evaluateHand(playerHand))
-// //
-// // hit(dealerHand)
-// // hit(dealerHand)
-// // hit(playerHand)
-// // hit(playerHand)
-// //
-// // console.log("dealerHand is: ", dealerHand)
-// // console.log("playerHand is: ", playerHand)
-// // ::::TEST::::
-//
-// //this function only calls a single func, thus unnecessary
-// // function stand() {
-// //    //run dealers play
-// //    dealerPlays()
-// // }
-//
-// //evaluate hand ::::TODO:::: possibly doing too much with this.
-// function evaluateHand (handToEvaluate) {
-//   // check value of dealer hand
-//   let handValue = 0;
-//   //evaluateCard hold string value of card from hand
-//   for (let i = 0; i < handToEvaluate.length; i++) {
-//     let evaluateCard = handToEvaluate[i];
-//     let cardValue = parseInt(evaluateCard);
-//     //check if parsing returns number, K Q J, or A.
-//     if (cardValue >= 2 && cardValue <= 10) {
-//       handValue += cardValue;
-//     } else if (evaluateCard == 'K' || evaluateCard == 'Q' || evaluateCard == 'J') {
-//       handValue += 10;
-//     } else if (evaluateCard == 'A') {
-//       //need to write logic to handle Ace situation. May be best to write external function for this.
-//       if (handValue + 11 <= 21) {
-//         handValue += 11;
-//       } else if (handValue + 11 > 21) {
-//         handValue += 1;
-//       }
-//     }
-//   }
-//   return handValue;
-// }
-//
 // console.log("dealerHand is: ", dealerHand)
-// console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
-//
-// //write dealerPlays function
-// // ::::TODO:::: Needs a lot of work, logic possibly way off. Need to go back to function layout.
-// function dealerPlays() {
-//   let inPlayHandValue = evaluateHand(dealerHand);
-//   while (inPlayHandValue < 17) {
-//     hit(dealerHand);
-//     inPlayHandValue = evaluateHand(dealerHand);
-//   }
-//   if (inPlayHandValue >= 17 && inPlayHandValue < 22) {
-//     console.log("The dealer stands. Total hand value: ", inPlayHandValue)
-//   } else if (inPlayHandValue > 21) {
-//     console.log("The dealer busts with a hand value of: ", inPlayHandValue)
-//   }
-// }
-//
-// dealerPlays()
-//
-//
-// //
-// // // after dealerPlays check who wins
-// // function winCheck(pHandValue, dHandValue) {
-// //   // compare value of dHand to pHand
-// //   // if dHand > pHand: dealer wins
-// //   // if dHand < pHand: player wins
-// //   // if dHand == pHand: timeout, no one wins / tie
-// // }
+// console.log("playerHand is: ", playerHand)
+// // ::::TEST::::
+
+//define function to be called when hit button is clicked
+function hit(handToHit) {
+  dealCard(handToHit)
+}
+
+//evaluate hand ::::TODO:::: possibly doing too much with this.
+function evaluateHand(handToEvaluate) {
+  // check value of dealer hand
+  let handValue = 0;
+  //evaluateCard hold string value of card from hand
+  for (let i = 0; i < handToEvaluate[0].length; i++) {
+    let evaluateCard = handToEvaluate[0][i];
+    let cardValue = parseInt(evaluateCard);
+    //check if parsing returns number, K Q J, or A.
+    if (cardValue >= 2 && cardValue <= 10) {
+      handValue += cardValue;
+    } else if (evaluateCard == 'K' || evaluateCard == 'Q' || evaluateCard == 'J') {
+      handValue += 10;
+    } else if (evaluateCard == 'A') {
+      //need to write logic to handle Ace situation. May be best to write external function for this.
+      if (handValue + 11 <= 21) {
+        handValue += 11;
+      } else if (handValue + 11 > 21) {
+        handValue += 1;
+      }
+    }
+  }
+  return handValue;
+}
+
+function playerPlays() {
+  let initialHandValue = evaluateHand(playerHand)
+  console.log("Initial Hand Value: ", initialHandValue)
+  //get input form user to hit or stand?
+  //if hit
+  // hit(playerHand)
+  //if stand
+  // run dealerPlays
+}
+
+playerPlays()
+
+
+console.log("dealerHand is: ", dealerHand)
+console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
+
+//write dealerPlays function
+function dealerPlays() {
+  let inPlayHandValue = evaluateHand(dealerHand);
+  while (inPlayHandValue < 17) {
+    hit(dealerHand);
+    inPlayHandValue = evaluateHand(dealerHand);
+  }
+  if (inPlayHandValue >= 17 && inPlayHandValue < 22) {
+    console.log("The dealer stands. Total hand value: ", inPlayHandValue)
+    return inPlayHandValue
+  } else if (inPlayHandValue > 21) {
+    console.log("The dealer busts with a hand value of: ", inPlayHandValue)
+  }
+}
+
+let finalDealerHandValue = dealerPlays()
+let finalPlayerHandValue =
+// after dealerPlays check who wins
+function winCheck(pHandValue, dHandValue) {
+  // compare value of dHand to pHand
+  // if dHand > pHand: dealer wins
+  // if dHand < pHand: player wins
+  // if dHand == pHand: timeout, no one wins / tie
+}
