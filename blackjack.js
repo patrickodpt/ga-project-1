@@ -2,7 +2,7 @@
 function startGame() {
   //on button click load gameboard
 }
-//initialize global objects/arrays
+//initialize global objects/arrays/functions
 let playerHand = [];
 let dealerHand = [];
 let deck = {
@@ -11,11 +11,6 @@ let deck = {
   diamond: ['2','3','4','5','6','7','8','9','10','J','Q','K','A'],
   club: ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
 };
-// ::::TEST::::
-// console.log(deck.spade)
-// deck.spade.splice(5, 1)
-// console.log(deck.spade)
-// console.log(deck.heart[12])
 const suitRoll = () => {return Math.floor(Math.random() * 4)}//output will be between 0-3
 const cardRoll = () => {return Math.floor(Math.random() * 13)} //output will be between 0-12 (13 nums)
 
@@ -24,12 +19,10 @@ function dealCard() {
   // called on click of deal button
   // returns card from deck
   let currentSuit = suitRoll(); //returns num between 0-4 which will be used to select suit
-  console.log("Current Suit: ", currentSuit) // ::::TEST::::
+  // console.log("Current Suit: ", currentSuit) // ::::TEST::::
   let currentCard = cardRoll(); //returns num between 0-11 which will be num index
-  console.log("Current Card: ", currentCard) // ::::TEST::::
-
+  // console.log("Current Card: ", currentCard) // ::::TEST::::
   let dealtCard; //initalize card to be dealt
-
   if (currentSuit == 0) {
     dealtCard = deck.spade[currentCard]; //store randomly selected card in variable
     deck.spade.splice(currentCard, 1); //remove selected card from deck object
@@ -46,30 +39,20 @@ function dealCard() {
     console.log("I don't know where I am, but I shouldn't be here")
   }
 
-  // console.log(dealtCard) // ::::TEST::::
-  // TODO:::: BELOW REMAINS BROKEN AS OF NOW.
   if (dealtCard) {
-    console.log(dealtCard) //strangely this returns a card if dealCard is called again.
+    // console.log(dealtCard) //strangely this returns a card if dealCard is called again.
     return dealtCard; //yet this consistently returns "undefined" if run a dealCard() is called below
   }
-
   console.log("I ran again")
-  dealCard()
+  return dealCard()
 };
 
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
-console.log(dealCard())
+//::::TEST::::
+for (let i = 0; i < 8; i++) {
+  console.log(dealCard())
+}
 console.log(deck)
+//::::TEST::::
 
 //gives two cards to each hand to start game
 function dealStartingHands() {
@@ -83,13 +66,27 @@ function dealStartingHands() {
 //initial hands are dealt here.
 dealStartingHands()
 
-console.log("Calling parseInt(.pop()) on dealerHand returns: ", typeof(parseInt(dealerHand.pop())))
-console.log("Calling parseInt(.pop()) on dealerHand returns: ", parseInt(dealerHand.pop()))
+console.log("dealerHand is: ", dealerHand)
+console.log("playerHand is: ", playerHand)
 
 //define function to be called when hit button is clicked
 function hit(handToHit) {
   handToHit.push(dealCard())
 }
+
+console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
+console.log("Player Hand Value: ", evaluateHand(playerHand))
+
+hit(dealerHand)
+hit(dealerHand)
+hit(playerHand)
+hit(playerHand)
+
+console.log("dealerHand is: ", dealerHand)
+console.log("playerHand is: ", playerHand)
+
+
+
 
 //this function only calls a single func, thus unnecessary
 // function stand() {
@@ -102,15 +99,22 @@ function evaluateHand (handToEvaluate) {
   // check value of dealer hand
   let handValue = 0;
   //evaluateCard hold string value of card from hand
-  let evaluateCard = handToEvaluate.pop();
-
-  //check if parsing returns number, K Q J, or A.
-  if (typeof(parseInt(evaluateCard)) == number) {
-    handValue += parseInt(evaluateCard);
-  } else if (evaluateCard == 'K' || evaluateCard == 'Q' || evaluateCard == 'J') {
-    handValue += 10;
-  } else if (evaluateCard == 'A') {
-    //need to write logic to handle Ace situation. May be best to write external function for this.
+  for (let i = 0; i < handToEvaluate.length; i++) {
+    let evaluateCard = handToEvaluate[i];
+    let cardValue = parseInt(evaluateCard);
+    //check if parsing returns number, K Q J, or A.
+    if (cardValue >= 2 && cardValue <= 10) {
+      handValue += cardValue;
+    } else if (evaluateCard == 'K' || evaluateCard == 'Q' || evaluateCard == 'J') {
+      handValue += 10;
+    } else if (evaluateCard == 'A') {
+      //need to write logic to handle Ace situation. May be best to write external function for this.
+      if (handValue + 11 <= 21) {
+        handvalue += 11;
+      } else if (handValue + 11 > 21) {
+        handValue += 1;
+      }
+    }
   }
   return handValue;
 }
