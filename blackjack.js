@@ -82,8 +82,13 @@ function checkBust(handToCheck) {
   let bust;
   if (evaluateHand(handToCheck) > 21) {
     bust = true;
-  } 
+  }
 }
+//NEED TO WRITE ACE CHECK!!!!!!!!!
+function aceCheck(handToCheck){
+  //check for ace here
+}
+
 
 //evaluate hand ::::TODO:::: possibly doing too much with this.
 function evaluateHand(handToEvaluate) {
