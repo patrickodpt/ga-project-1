@@ -49,3 +49,8 @@ body {
 button {
   /* put buttons side by side */
 }
+
+.card {
+  width: 60px;
+  border: solid black;
+}

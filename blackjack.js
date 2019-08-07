@@ -42,6 +42,10 @@ firstDeal()
 console.log(playerHand)
 console.log(dealerHand)
 
+let newCardInPlay = document.createElement('img')
+newCardInPlay.className = "card"
+newCardInPlay.setAttribute('src', playerHand[0].image)
+document.querySelector('#playerHand').appendChild(newCardInPlay)
 
 
 
