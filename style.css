@@ -12,6 +12,7 @@ body {
 }
 
 #gameBoard {
+  padding: 10px;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -36,7 +37,7 @@ body {
   border: solid black;
 }
 
-#player1Hand {
+#playerHand {
   display: flex;
   width: 500px;
   height: 90px;

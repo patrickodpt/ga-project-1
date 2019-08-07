@@ -43,6 +43,9 @@ function dealCard(targetHand) {
     console.log("I shouldn't be here")
   }
 
+  let name = arguments[0]
+  console.log("name of arguments:", name)
+
   if (dealtCardValue) {
     // console.log(dealtCard) //strangely this returns a card if dealCard is called again.
     targetHand[0].push(dealtCardValue)
