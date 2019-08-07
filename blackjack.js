@@ -47,11 +47,11 @@ function dealCard() {
   return dealCard()
 };
 
-//::::TEST::::
-for (let i = 0; i < 8; i++) {
-  console.log(dealCard())
-}
-console.log(deck)
+// //::::TEST::::
+// for (let i = 0; i < 8; i++) {
+//   console.log(dealCard())
+// }
+// console.log(deck)
 //::::TEST::::
 
 //gives two cards to each hand to start game
@@ -66,24 +66,28 @@ function dealStartingHands() {
 //initial hands are dealt here.
 dealStartingHands()
 
-console.log("dealerHand is: ", dealerHand)
-console.log("playerHand is: ", playerHand)
+// ::::TEST::::
+// console.log("dealerHand is: ", dealerHand)
+// console.log("playerHand is: ", playerHand)
+// ::::TEST::::
 
 //define function to be called when hit button is clicked
 function hit(handToHit) {
   handToHit.push(dealCard())
 }
 
-console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
-console.log("Player Hand Value: ", evaluateHand(playerHand))
-
-hit(dealerHand)
-hit(dealerHand)
-hit(playerHand)
-hit(playerHand)
-
-console.log("dealerHand is: ", dealerHand)
-console.log("playerHand is: ", playerHand)
+// ::::TEST::::
+// console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
+// console.log("Player Hand Value: ", evaluateHand(playerHand))
+//
+// hit(dealerHand)
+// hit(dealerHand)
+// hit(playerHand)
+// hit(playerHand)
+//
+// console.log("dealerHand is: ", dealerHand)
+// console.log("playerHand is: ", playerHand)
+// ::::TEST::::
 
 //this function only calls a single func, thus unnecessary
 // function stand() {
@@ -116,19 +120,25 @@ function evaluateHand (handToEvaluate) {
   return handValue;
 }
 
+console.log("dealerHand is: ", dealerHand)
+console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
 
 //write dealerPlays function
 // ::::TODO:::: Needs a lot of work, logic possibly way off. Need to go back to function layout.
-// function dealerPlays() {
-//   // if value is >17 stay
-//   if (evaluateHand(dealerHand) < 17) {
-//     hit(dealerHand)
-//   } else if (evaluateHand(dealerHand) > 17 && evaluateHand(dealerHand) < 22) {
-//     return
-//   }
-//   // else hit
-// }
+function dealerPlays() {
+  let inPlayHandValue = evaluateHand(dealerHand);
+  while (inPlayHandValue < 17) {
+    hit(dealerHand);
+    inPlayHandValue = evaluateHand(dealerHand);
+  }
+  if (inPlayHandValue >= 17 && inPlayHandValue < 22) {
+    console.log("The dealer stands. Total hand value: ", inPlayHandValue)
+  } else if (inPlayHandValue > 21) {
+    console.log("The dealer busts with a hand value of: ", inPlayHandValue)
+  }
+}
 
+dealerPlays()
 
 
 //
