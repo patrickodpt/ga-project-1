@@ -85,9 +85,6 @@ hit(playerHand)
 console.log("dealerHand is: ", dealerHand)
 console.log("playerHand is: ", playerHand)
 
-
-
-
 //this function only calls a single func, thus unnecessary
 // function stand() {
 //    //run dealers play
@@ -110,7 +107,7 @@ function evaluateHand (handToEvaluate) {
     } else if (evaluateCard == 'A') {
       //need to write logic to handle Ace situation. May be best to write external function for this.
       if (handValue + 11 <= 21) {
-        handvalue += 11;
+        handValue += 11;
       } else if (handValue + 11 > 21) {
         handValue += 1;
       }
