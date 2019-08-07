@@ -87,8 +87,8 @@ console.log("Calling parseInt(.pop()) on dealerHand returns: ", typeof(parseInt(
 console.log("Calling parseInt(.pop()) on dealerHand returns: ", parseInt(dealerHand.pop()))
 
 //define function to be called when hit button is clicked
-function hit() {
-  playerHand.push(dealCard())
+function hit(handToHit) {
+  handToHit.push(dealCard())
 }
 
 //this function only calls a single func, thus unnecessary
@@ -97,7 +97,7 @@ function hit() {
 //    dealerPlays()
 // }
 
-//evaluate hand
+//evaluate hand ::::TODO:::: possibly doing too much with this.
 function evaluateHand (handToEvaluate) {
   // check value of dealer hand
   let handValue = 0;
@@ -112,9 +112,24 @@ function evaluateHand (handToEvaluate) {
   } else if (evaluateCard == 'A') {
     //need to write logic to handle Ace situation. May be best to write external function for this.
   }
-  // if value is >17 stay
-  // else hit
+  return handValue;
 }
+
+
+//write dealerPlays function
+// ::::TODO:::: Needs a lot of work, logic possibly way off. Need to go back to function layout.
+// function dealerPlays() {
+//   // if value is >17 stay
+//   if (evaluateHand(dealerHand) < 17) {
+//     hit(dealerHand)
+//   } else if (evaluateHand(dealerHand) > 17 && evaluateHand(dealerHand) < 22) {
+//     return
+//   }
+//   // else hit
+// }
+
+
+
 //
 // // after dealerPlays check who wins
 // function winCheck(pHandValue, dHandValue) {
