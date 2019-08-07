@@ -71,9 +71,9 @@ console.log("Visible Dealer Card is: ", dealerHand[0][0])
 
 //define function to be called when hit button is clicked
 function hit(handToHit) {
-  console.log("hand pre-hit: ", handToHit)
+  console.log("hand pre-hit: ", handToHit[0])
   dealCard(handToHit)
-  console.log("hand post-hit: ", handToHit)
+  console.log("hand post-hit: ", handToHit[0])
   checkBust(handToHit)
 }
 
@@ -107,7 +107,6 @@ function aceCheck(handToCheck){
   return acePresent;
 }
 
-
 //evaluate hand ::::TODO:::: possibly doing too much with this.
 function evaluateHand(handToEvaluate) {
   // check value of dealer hand
@@ -139,13 +138,6 @@ document.querySelector('#stand').addEventListener('click', () => {
   finalPlayerHandValue = evaluateHand(playerHand);
   winCheck(finalDealerHandValue, finalPlayerHandValue);
 })
-
-
-// //::::TEST::::
-// console.log("dealerHand is: ", dealerHand)
-// console.log("Dealer Hand Value: ", evaluateHand(dealerHand))
-// //::::TEST::::
-
 
 //write dealerPlays function
 function dealerPlays() {

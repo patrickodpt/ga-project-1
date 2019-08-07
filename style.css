@@ -1,3 +1,50 @@
-#hit {
-  text-decoration: line-through;
+/* source of card images: http://acbl.mybigcommerce.com/52-playing-cards/ */
+
+* {
+  box-sizing: content-box;
+  text-align: center;
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+  border: solid black;
+}
+
+#gameBoard {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  width: 600px;
+  height: 600px;
+  background-color: green;
+  align-self: center;
+  border: solid black;
+}
+
+#dealerHand {
+  display: flex;
+  width: 500px;
+  height: 90px;
+  border: solid black;
+  align-self: center;
+  justify-content: center;
+}
+
+#deck-image {
+  width: 60px;
+  border: solid black;
+}
+
+#player1Hand {
+  display: flex;
+  width: 500px;
+  height: 90px;
+  border: solid blue;
+  align-self: center;
+  justify-content: center;
+}
+
+button {
+  /* put buttons side by side */
 }
