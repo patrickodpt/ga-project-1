@@ -12,8 +12,8 @@ let deck = {
 };
 const suitRoll = () => {return Math.floor(Math.random() * 4)}//output will be between 0-3
 const cardRoll = () => {return Math.floor(Math.random() * 13)} //output will be between 0-12 (13 nums)
-let finalDealerHandValue;
-let finalPlayerHandValue;
+let finalDealerHandValue = 0;
+let finalPlayerHandValue = 0;
 
 //function to randomly deal card from deck object
 function dealCard(targetHand) {
@@ -78,41 +78,58 @@ function hit(handToHit) {
 }
 
 //NEED TO WRITE BUST CONDITION::::::::::::::::
+//returns false or true or new handValue if ace present
 function checkBust(handToCheck) {
-  let bust;
-  if (evaluateHand(handToCheck) > 21) {
-    bust = true;
+  let bust = false;
+  let ace = aceCheck(handToCheck)
+  let handValue = evaluateHand(handToCheck)
+  if ((handValue > 21) && !ace) {
+    console.log("player busted", handToCheck[0])
+    return bust = true;
+  } else if ((handValue) > 21 && ace) {
+    handValue -= 10;
+    return handValue;
+  } else if (handValue <= 21) {
+    return bust;
+  } else {
+    console.log("I SHOULD NOT BE HERE::::checkBust")
   }
 }
 //NEED TO WRITE ACE CHECK!!!!!!!!!
 function aceCheck(handToCheck){
-  //check for ace here
+  let acePresent = false;
+  for (let i = 0; i < handToCheck[0].length; i++) {
+    if (handToCheck[0][i] == 'A') {
+      handToCheck[0][i] = 'usedAce'
+      return acePresent = true;
+    }
+  }
+  return acePresent;
 }
 
 
 //evaluate hand ::::TODO:::: possibly doing too much with this.
 function evaluateHand(handToEvaluate) {
   // check value of dealer hand
-  let handValue = 0;
+  let evaluatedValue = 0;
   //evaluateCard hold string value of card from hand
   for (let i = 0; i < handToEvaluate[0].length; i++) {
     let evaluateCard = handToEvaluate[0][i];
     let cardValue = parseInt(evaluateCard);
     //check if parsing returns number, K Q J, or A.
     if (cardValue >= 2 && cardValue <= 10) {
-      handValue += cardValue;
+      evaluatedValue += cardValue;
     } else if (evaluateCard == 'K' || evaluateCard == 'Q' || evaluateCard == 'J') {
-      handValue += 10;
+      evaluatedValue += 10;
     } else if (evaluateCard == 'A') {
-      //need to write logic to handle Ace situation. May be best to write external function for this.
-      if (handValue + 11 <= 21) {
-        handValue += 11;
-      } else if (handValue + 11 > 21) {
-        handValue += 1;
-      }
+      evaluatedValue += 11;
+    } else if (evaluateCard == 'usedAce') {
+      evaluatedValue += 1;
+    } else {
+      console.log("I SHOULD NOT BE HERE::::evaluateHand")
     }
   }
-  return handValue;
+  return evaluatedValue;
 }
 
 document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
