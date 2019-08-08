@@ -41,7 +41,7 @@ const dealCard = function (targetHand) {
 
   // if the dealer got his first card, don't show it.
   if ((targetHand[0].name == 'dealerHand') && (dealerHand.length < 3)) {
-    dealtCardImage.setAttribute('id', 'first-card')
+    // dealtCardImage.setAttribute('id', 'first-card') //might not need this id.
     dealtCardImage.setAttribute('src', 'card-images/JPEG/blue_back.jpg');
     document.querySelector(`#${targetHand[0].name}`).appendChild(dealtCardImage)
   } else {
@@ -163,17 +163,27 @@ const winCheck = function () {
 };
 
 const resetHand = function (targetHand) {
-  let currentNodeList = document.querySelectorAll('.card')
-  for (let i = 1; i < targetHand.length; i++) {
-    for (let k = 1; k < currentNodeList.length; k++)
+  console.log ("current targetHand for resetHand is: ", targetHand)
+  let currentNodeList = document.querySelectorAll(`#${targetHand[0].name} > .card`);
+  for (let i = 0; i < targetHand.length; i++) {
+    for (let k = 0; k < currentNodeList.length; k++)
       currentNodeList[k].remove();
     targetHand.pop();
   }
 }
 
 const gameOver = function (pHand, dHand) {
+  let testingPlayerHand = [...pHand];
+  let testingDealerHand = [...dHand];
+  console.log("This is the player hand before resetHand(): ", testingPlayerHand)
+  console.log("This is the dealer hand before resetHand(): ", testingDealerHand)
+
   resetHand(pHand);
+
   resetHand(dHand);
+  console.log("This is the player hand after resetHand(): ", pHand)
+  console.log("This is the dealer hand after resetHand(): ", dHand)
+
   playGameButton.style["font-size"] = '10px';
   document.querySelector('#info-row').appendChild(playGameButton);
 }
