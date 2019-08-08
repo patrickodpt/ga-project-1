@@ -19,18 +19,20 @@ playGameButton.addEventListener('click', () => {
   coverImage.style.visibility = 'hidden';
   //call shuffle function
   shuffleTheDeck();
-  //call firstDeal
-  firstDeal();
 
   if (playing == false) {
     playerHand = resetHand(playerHand);
     dealerHand = resetHand(dealerHand);
+    scoreDivElem.innerHTML = "MESSAGES GO HERE"
     playing = true;
   }
+  //call firstDeal
+  firstDeal();
 
   document.querySelector('#hit').style.visibility = "visible";
   document.querySelector('#stand').style.visibility = "visible";
 
+  // NEED TO REMOVE GAME BUTTON ON REPLAY
   // playGameButton.remove();
 
 });
@@ -175,15 +177,15 @@ const winCheck = function () {
 };
 
 const resetHand = function (targetHand) {
-  document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove())
+  document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove())  //need to review syntax here.
   targetHand = [ targetHand[0] ]
   return targetHand
 }
 
 const gameOver = function () {
+  playing = false;
   document.querySelector('#hit').style.visibility = "hidden";
   document.querySelector('#stand').style.visibility = "hidden";
   playGameButton.style["font-size"] = '10px';
-  playing = false;
   document.querySelector('#info-row').appendChild(playGameButton);
 }
