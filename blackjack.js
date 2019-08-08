@@ -1,16 +1,7 @@
 // saves container for node of wrapper div
 let coverImage = document.querySelector('#wrapper')
 let scoreDivElem = document.querySelector('#scoreDiv')
-
-
-//function to start game
-document.querySelector('#playGame').addEventListener('click', () => {
-  coverImage.style.visibility = 'hidden';
-  //call shuffle function
-  shuffleTheDeck();
-  //call firstDeal
-  firstDeal();
-});
+let playGameButton = document.querySelector('#playGame')
 
 //initialize global objects/arrays/functions
 let playerHand = [{name: 'playerHand'}];
@@ -19,7 +10,20 @@ let shuffledDeck = [];
 let playing;
 let score = 0;
 
-//                         const functions below:
+//set addEventListener:
+document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
+document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
+
+//function to start game
+playGameButton.addEventListener('click', () => {
+  coverImage.style.visibility = 'hidden';
+  //call shuffle function
+  shuffleTheDeck();
+  //call firstDeal
+  firstDeal();
+});
+
+//functions below:
 //define shuffle function
 const shuffleTheDeck = function () {
   while (deck.length > 0){
@@ -68,10 +72,11 @@ const hit = function(targetHand) {
      if (aceCheck(targetHand) == false) {
          if (targetHand[0].name == 'playerHand') {
            scoreDivElem.innerHTML = "PLAYER LOSES"
-
+           gameOver(playerHand, dealerHand);
            playing = false;
          } else if (targetHand[0].name == 'dealerHand') {
            scoreDivElem.innerHTML = "DEALER LOSES"
+           gameOver(playerHand, dealerHand);
            playing = false;
          }
        }
@@ -145,31 +150,30 @@ const winCheck = function () {
   if (finalDealerHandValue > finalPlayerHandValue) {
     console.log("dealer wins");
     scoreDivElem.innerHTML = "DEALER LOSES"
+    gameOver(playerHand, dealerHand);
   } else if (finalDealerHandValue < finalPlayerHandValue) {
     console.log("player wins");
     scoreDivElem.innerHTML = "PLAYER LOSES"
+    gameOver(playerHand, dealerHand);
   } else if (finalDealerHandValue == finalPlayerHandValue) {
     console.log("It's a tie!");
     scoreDivElem.innerHTML = "TIES"
+    gameOver(playerHand, dealerHand);
   }
 };
 
-//set addEventListener:
-document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
-document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
+const resetHand = function (targetHand) {
+  let currentNodeList = document.querySelectorAll('.card')
+  for (let i = 1; i < targetHand.length; i++) {
+    for (let k = 1; k < currentNodeList.length; k++)
+      currentNodeList[k].remove();
+    targetHand.pop();
+  }
+}
 
-
-
-// while (score < 3) {
-
-
-  //playersTurn, I think.
-
-
-  // //::::TEST::::
-  // console.log("playerHand: ", playerHand)
-  // console.log("dealerHand: ", dealerHand)
-  // console.log("valueCheck of playerHand ", valueCheck(playerHand))
-  // console.log("valueCheck of dealerHand ", valueCheck(dealerHand))
-  // //::::TESTS:::::
-// }
+const gameOver = function (pHand, dHand) {
+  resetHand(pHand);
+  resetHand(dHand);
+  playGameButton.style["font-size"] = '10px';
+  document.querySelector('#info-row').appendChild(playGameButton);
+}
