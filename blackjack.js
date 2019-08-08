@@ -7,7 +7,7 @@ let playGameButton = document.querySelector('#playGame')
 let playerHand = [{name: 'playerHand'}];
 let dealerHand = [{name: 'dealerHand'}];
 let shuffledDeck = [];
-let playing;
+let playing = true;
 let score = 0;
 
 //set addEventListener:
@@ -21,7 +21,20 @@ playGameButton.addEventListener('click', () => {
   shuffleTheDeck();
   //call firstDeal
   firstDeal();
+
+  if (playing == false) {
+    playerHand = resetHand(playerHand);
+    dealerHand = resetHand(dealerHand);
+    playing = true;
+  }
+
+  document.querySelector('#hit').style.visibility = "visible";
+  document.querySelector('#stand').style.visibility = "visible";
+
+  // playGameButton.remove();
+
 });
+
 
 //functions below:
 //define shuffle function
@@ -73,12 +86,10 @@ const hit = function(targetHand) {
      if (aceCheck(targetHand) == false) {
          if (targetHand[0].name == 'playerHand') {
            scoreDivElem.innerHTML = "PLAYER LOSES: BUSTED"
-           gameOver(playerHand, dealerHand);
-           // playing = false;
+           gameOver();
          } else if (targetHand[0].name == 'dealerHand') {
            scoreDivElem.innerHTML = "DEALER LOSES: BUSTED"
-           gameOver(playerHand, dealerHand);
-           // playing = false;
+           gameOver();
          }
        }
      }
@@ -150,40 +161,29 @@ const winCheck = function () {
   let finalDealerHandValue = valueCheck(dealerHand)
   if (finalDealerHandValue > finalPlayerHandValue) {
     console.log("dealer wins");
-    scoreDivElem.innerHTML = "DEALER LOSES"
-    gameOver(playerHand, dealerHand);
+    scoreDivElem.innerHTML = "DEALER WINS"
+    gameOver();
   } else if (finalDealerHandValue < finalPlayerHandValue) {
     console.log("player wins");
-    scoreDivElem.innerHTML = "PLAYER LOSES"
-    gameOver(playerHand, dealerHand);
+    scoreDivElem.innerHTML = "PLAYER WINS"
+    gameOver();
   } else if (finalDealerHandValue == finalPlayerHandValue) {
     console.log("It's a tie!");
     scoreDivElem.innerHTML = "TIES"
-    gameOver(playerHand, dealerHand);
+    gameOver();
   }
 };
 
 const resetHand = function (targetHand) {
-  console.log ("current targetHand for resetHand is: ", targetHand)
   document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove())
-
   targetHand = [ targetHand[0] ]
-
   return targetHand
 }
 
-const gameOver = function (pHand, dHand) {
-  let testingPlayerHand = [...pHand];
-  let testingDealerHand = [...dHand];
-  console.log("This is the player hand before resetHand(): ", testingPlayerHand)
-  console.log("This is the dealer hand before resetHand(): ", testingDealerHand)
-
-  playerHand = resetHand(playerHand);
-  dealerHand = resetHand(dealerHand);
-
-  console.log("This is the player hand after resetHand(): ", playerHand)
-  console.log("This is the dealer hand after resetHand(): ", dealerHand)
-
+const gameOver = function () {
+  document.querySelector('#hit').style.visibility = "hidden";
+  document.querySelector('#stand').style.visibility = "hidden";
   playGameButton.style["font-size"] = '10px';
+  playing = false;
   document.querySelector('#info-row').appendChild(playGameButton);
 }

@@ -101,3 +101,19 @@ button {
   flex-flow: column;
   /* border: solid yellow; */
 }
+
+#hit {
+  visibility: visible;
+}
+
+#stand {
+  visibility: visible;
+}
+
+/* #info-row {
+  display: flex;
+  flex: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+} */
