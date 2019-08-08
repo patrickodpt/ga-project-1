@@ -165,9 +165,11 @@ const winCheck = function () {
 const resetHand = function (targetHand) {
   console.log ("current targetHand for resetHand is: ", targetHand)
   let currentNodeList = document.querySelectorAll(`#${targetHand[0].name} > .card`);
-  for (let i = 0; i < targetHand.length; i++) {
+
+  for (let i = 0; i <= targetHand.length; i++) {
     for (let k = 0; k < currentNodeList.length; k++)
       currentNodeList[k].remove();
+    console.log("pop count: ", i)
     targetHand.pop();
   }
 }

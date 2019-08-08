@@ -2,10 +2,7 @@ let deck = [
   {card: '2',
   value: 2,
   suit: 'spade',
-  image: "card-images/JPEG/2S.jpg",
-  element: null
-},
-
+  image: "card-images/JPEG/2S.jpg"},
 
   {card: '3',
   value: 3,
