@@ -54,6 +54,7 @@ const dealCard = function (targetHand) {
 
 //define first deal.
 const firstDeal = function () {
+  console.log([...playerHand])
   // deal player 2 cards
   do {
     dealCard(playerHand);
@@ -71,13 +72,13 @@ const hit = function(targetHand) {
   if (bustCheck(valueCheck(targetHand))) {
      if (aceCheck(targetHand) == false) {
          if (targetHand[0].name == 'playerHand') {
-           scoreDivElem.innerHTML = "PLAYER LOSES"
+           scoreDivElem.innerHTML = "PLAYER LOSES: BUSTED"
            gameOver(playerHand, dealerHand);
-           playing = false;
+           // playing = false;
          } else if (targetHand[0].name == 'dealerHand') {
-           scoreDivElem.innerHTML = "DEALER LOSES"
+           scoreDivElem.innerHTML = "DEALER LOSES: BUSTED"
            gameOver(playerHand, dealerHand);
-           playing = false;
+           // playing = false;
          }
        }
      }
@@ -127,7 +128,7 @@ const dealersTurn = function () {
   console.log("The dealer is going now");
   //show card
   // let firstCardImage = dealerHand[1].image
-  document.querySelector('#first-card').setAttribute('src', dealerHand[1].image)
+  document.querySelector('#dealerHand > .card').setAttribute('src', dealerHand[1].image)
 
   let handValue = valueCheck(dealerHand);
 
@@ -164,14 +165,11 @@ const winCheck = function () {
 
 const resetHand = function (targetHand) {
   console.log ("current targetHand for resetHand is: ", targetHand)
-  let currentNodeList = document.querySelectorAll(`#${targetHand[0].name} > .card`);
+  document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove())
 
-  for (let i = 0; i <= targetHand.length; i++) {
-    for (let k = 0; k < currentNodeList.length; k++)
-      currentNodeList[k].remove();
-    console.log("pop count: ", i)
-    targetHand.pop();
-  }
+  targetHand = [ targetHand[0] ]
+
+  return targetHand
 }
 
 const gameOver = function (pHand, dHand) {
@@ -180,11 +178,11 @@ const gameOver = function (pHand, dHand) {
   console.log("This is the player hand before resetHand(): ", testingPlayerHand)
   console.log("This is the dealer hand before resetHand(): ", testingDealerHand)
 
-  resetHand(pHand);
+  playerHand = resetHand(playerHand);
+  dealerHand = resetHand(dealerHand);
 
-  resetHand(dHand);
-  console.log("This is the player hand after resetHand(): ", pHand)
-  console.log("This is the dealer hand after resetHand(): ", dHand)
+  console.log("This is the player hand after resetHand(): ", playerHand)
+  console.log("This is the dealer hand after resetHand(): ", dealerHand)
 
   playGameButton.style["font-size"] = '10px';
   document.querySelector('#info-row').appendChild(playGameButton);
