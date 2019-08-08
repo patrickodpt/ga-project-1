@@ -5,15 +5,8 @@ function startGame() {
 let playerHand = [];
 let dealerHand = [];
 let shuffledDeck = [];
-
-// //::::TESTS::::
-// document.querySelector('img').setAttribute('src', deck[0].image)
-// console.log(deck[43].image)
-// console.log(deck[21].card)
-// console.log(deck[22].card)
-// console.log(deck[23].suit)
-// //::::TEST::::
-
+let playing;
+//                              const functions below:
 //define shuffle function
 const shuffleTheDeck = function () {
   while (deck.length > 0){
@@ -21,10 +14,6 @@ const shuffleTheDeck = function () {
     shuffledDeck.push(...deck.splice(randomIndex, 1))
   }
 }
-
-//call shuffle function
-shuffleTheDeck()
-//::::TEST:::: console.log(shuffledDeck) :::: SEEMS TO WORK!
 
 //define generic deal function
 const dealCard = function (targetHand) {
@@ -43,20 +32,20 @@ const firstDeal = function () {
   } while (dealerHand.length < 2);
 }
 
-//call firstDeal
-firstDeal();
-//::::TEST::::
-console.log(playerHand)
-console.log(dealerHand)
-
+//define hit function, which calls bustCheck and aceCheck if bust is true.
 const hit = function(targetHand) {
   dealCard(targetHand);
   console.log(targetHand);
+  if (bustCheck(valueCheck(targetHand))) {
+     if (aceCheck(targetHand) == false) {
+       console.log("Current Player BUSTED"); //TODO::::graphical functionality
+       playing = false;
+     }
+  }
+  console.log(valueCheck(targetHand))
 }
 
-//give #hit element event listener for click to call hit()
-document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
-
+//checks current value of hand
 const valueCheck = function(targetHand) {
   let handValue = 0;
   for (let i = 0; i < targetHand.length; i++) {
@@ -78,17 +67,42 @@ const bustCheck = function(handValue) {
   return bust
 }
 
-
+// logically, ace only matters if going to bust
+// if going to bust, ace converts to value 1, returns true, else returns false
 const aceCheck = function(targetHand) {
-  let aceCheck;
-  for (let i = 0; i < targetHand.length) {
-    if targetHand[i].
+  let aceCheck = false;
+  for (let i = 0; i < targetHand.length; i++) {
+    if (targetHand[i].value == 11) {
+      targetHand[i].value = 1
+      aceCheck = true;
+    }
   }
+  //returns whether or not ace present and value conversion occurs
+  return aceCheck
+}
+
+const playerTurn = function () {
+
 }
 
 
-valueCheck(playerHand)
-valueCheck(dealerHand)
+//set addEventListener:
+document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
+
+
+
+//call shuffle function
+shuffleTheDeck()
+
+//call firstDeal
+firstDeal();
+//::::TEST::::
+console.log(playerHand)
+console.log(dealerHand)
+
+
+console.log(valueCheck(playerHand))
+console.log(valueCheck(dealerHand))
 
 
 
@@ -119,10 +133,7 @@ valueCheck(dealerHand)
 
 
 
-while (playing = true) {
-  //all game logic until game ends.
-  break
-}
+
 
 
 
