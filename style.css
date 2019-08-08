@@ -24,12 +24,12 @@ on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-c
 body {
   display: flex;
   flex-flow: column;
-  border: solid black;
+  /* border: solid black; */
 }
 
 h1 {
   background-color: green;
-  border: solid pink;
+  /* border: solid pink; */
 }
 
 #gameBoard {
@@ -41,28 +41,28 @@ h1 {
   height: 600px;
   background-color: green;
   align-self: center;
-  border: solid black;
+  /* border: solid black; */
 }
 
 #dealerHand {
   display: flex;
   width: 500px;
   height: 90px;
-  border: solid black;
+  /* border: solid black; */
   align-self: center;
   justify-content: center;
 }
 
 #deck-image {
   width: 60px;
-  border: solid black;
+  /* border: solid black; */
 }
 
 #playerHand {
   display: flex;
   width: 500px;
   height: 90px;
-  border: solid blue;
+  /* border: solid blue; */
   align-self: center;
   justify-content: center;
 }
@@ -79,11 +79,11 @@ button {
 #playerDiv {
   display: flex;
   flex-flow: column-reverse;
-  border: solid yellow;
+  /* border: solid yellow; */
 }
 
 #dealerDiv {
   display: flex;
   flex-flow: column;
-  border: solid yellow;
+  /* border: solid yellow; */
 }

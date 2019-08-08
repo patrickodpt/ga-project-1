@@ -24,13 +24,14 @@ const dealCard = function (targetHand) {
 
   // if the dealer got his first card, don't show it.
   if ((targetHand[0].name == 'dealerHand') && (dealerHand.length < 3)) {
+    dealtCardImage.setAttribute('id', 'first-card')
     dealtCardImage.setAttribute('src', 'card-images/JPEG/blue_back.jpg');
     document.querySelector(`#${targetHand[0].name}`).appendChild(dealtCardImage)
   } else {
+    //deal card and set src to image in card object
     dealtCardImage.setAttribute('src', dealtCard.image);
     document.querySelector(`#${targetHand[0].name}`).appendChild(dealtCardImage)
   }
-
   console.log(dealtCard);
 };
 
@@ -98,6 +99,10 @@ const aceCheck = function(targetHand) {
 
 const dealersTurn = function () {
   console.log("The dealer is going now");
+  //show card
+  // let firstCardImage = dealerHand[1].image
+  document.querySelector('#first-card').setAttribute('src', dealerHand[1].image)
+
   let handValue = valueCheck(dealerHand);
 
   while (handValue < 17) {
