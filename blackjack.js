@@ -1,6 +1,11 @@
+// saves container for node of wrapper div
+let coverImage = document.querySelector('#wrapper')
+
 //function to start game
-function startGame() {
-}
+document.querySelector('#playGame').addEventListener('click', () => {
+  coverImage.style.visibility = 'hidden';
+});
+
 //initialize global objects/arrays/functions
 let playerHand = [{name: 'playerHand'}];
 let dealerHand = [{name: 'dealerHand'}];
@@ -53,13 +58,20 @@ const hit = function(targetHand) {
   console.log(targetHand);
   if (bustCheck(valueCheck(targetHand))) {
      if (aceCheck(targetHand) == false) {
-       console.log("Current Player BUSTED"); //TODO::::graphical functionality
+         if (targetHand[0].name == 'playerHand') {
+           coverImage.style.visibility = 'visible';
+           coverImage.innerHTML = 'YOU BUSTED! DEALER WINS!';
+         } else if (targetHand[0].name == 'dealerHand') {
+           coverImage.style.visibility = 'visible';
+           coverImage.innerHTML = 'DEALER BUSTED! PLAYER WINS!';
+         }
+       }
        playing = false;
      }
-  }
-  console.log("valueCheck in hit()", valueCheck(targetHand))
-  return valueCheck(targetHand)
+   console.log("valueCheck in hit()", valueCheck(targetHand))
+   return valueCheck(targetHand)
 }
+
 
 //checks current value of hand
 const valueCheck = function(targetHand) {
@@ -97,6 +109,7 @@ const aceCheck = function(targetHand) {
   return aceCheck
 }
 
+//contains dealer logic.
 const dealersTurn = function () {
   console.log("The dealer is going now");
   //show card
@@ -125,11 +138,17 @@ const winCheck = function () {
   if (finalDealerHandValue > finalPlayerHandValue) {
     console.log("dealer wins")
     playing = false;
+    coverImage.innerHTML = 'DEALER WINS! '
+    coverImage.style.visibility = 'visible'
   } else if (finalDealerHandValue < finalPlayerHandValue) {
     console.log("player wins")
+    coverImage.style.visibility = 'visible'
+    coverImage.innerHTML = 'PLAYER WINS!'
     playing = false;
   } else if (finalDealerHandValue == finalPlayerHandValue) {
     console.log("It's a tie!")
+    coverImage.style.visibility = 'visible'
+    coverImage.innerHTML = 'NO ONE WINS'
     playing = false;
   }
 };

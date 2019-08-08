@@ -8,6 +8,8 @@
 /* basic wrapper CSS to cover entire screen for inital screen and win screen from Michael Schmidt on
 on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-cover-the-whole-page-instead-of-the-area-within-the-container*/
 #wrapper {
+  display: flex;
+  justify-content: center;
   position: fixed;
   padding: 0;
   margin: 0;
@@ -15,10 +17,22 @@ on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-c
   left: 0;
   width: 100%;
   height: 100%;
-
-  background: black;
+  background: grey;
+  visibility: visible;
 }
 
+#playGame {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-content: center;
+  position: relative;
+  font-size: 40px;
+  font-weight: bold;
+  width: 50%;
+  height: 25%;
+  border-radius: 25px;
+}
 
 
 body {
