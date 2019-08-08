@@ -6,27 +6,32 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <h1>PLAY BLACKJACK</h1>
-    <div id="gameBoard">
-      <div class="hand" id="dealerHand">
-        DEALER HAND
-      </div>
+    <div id="wrapper">
+      <h1>PLAY BLACKJACK</h1>
+      <div id="gameBoard">
+        <div id="dealerDiv">
+          <h2>DEALER HAND</h2>
+          <div class="hand" id="dealerHand"></div>
+        </div>
 
-      <div id="deck">
-        <img src="card-images/JPEG/blue_back.jpg" alt="deck of cards" id="deck-image">
-      </div>
+        <div id="deck">
+          <img src="card-images/JPEG/blue_back.jpg" alt="deck of cards" id="deck-image">
+        </div>
 
-      <div class="hand" id="playerHand">
-        PLAYER HAND
-      </div>
+        <div id="playerDiv">
+          <h2>PLAYER HAND</h2>
+          <div class="hand" id="playerHand">
+          </div>
+        </div>
+        <div id="info-row">
+          <div id="score">SCORE GOES HERE</div>
+          <button id="hit">HIT</button>
+          <button id="stand">STAND</button>
+        </div>
 
-      <div id="info-row">
-        <div id="score">SCORE GOES HERE</div>
-        <button id="hit">HIT</button>
-        <button id="stand">STAND</button>
       </div>
-
     </div>
+
     <script type="text/javascript" src="deck.js"></script>
     <script type="text/javascript" src="blackjack.js"></script>
   </body>

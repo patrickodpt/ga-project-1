@@ -5,6 +5,22 @@
   text-align: center;
 }
 
+/* basic wrapper CSS to cover entire screen for inital screen and win screen from Michael Schmidt on
+on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-cover-the-whole-page-instead-of-the-area-within-the-container*/
+#wrapper {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: black;
+}
+
+
+
 body {
   display: flex;
   flex-flow: column;
@@ -21,7 +37,7 @@ h1 {
   display: flex;
   flex-flow: column;
   justify-content: space-between;
-  width: 600px;
+  width: 100%;
   height: 600px;
   background-color: green;
   align-self: center;
@@ -58,4 +74,16 @@ button {
 .card {
   width: 60px;
   border: solid black;
+}
+
+#playerDiv {
+  display: flex;
+  flex-flow: column-reverse;
+  border: solid yellow;
+}
+
+#dealerDiv {
+  display: flex;
+  flex-flow: column;
+  border: solid yellow;
 }

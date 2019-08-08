@@ -20,9 +20,16 @@ const dealCard = function (targetHand) {
   let dealtCard = shuffledDeck.pop();
   targetHand.push(dealtCard);
   let dealtCardImage = document.createElement('img');
-  dealtCardImage.setAttribute('src', dealtCard.image);
   dealtCardImage.className = 'card';
-  document.querySelector('#playerHand').appendChild(dealtCardImage)
+
+  // if the dealer got his first card, don't show it.
+  if ((targetHand[0].name == 'dealerHand') && (dealerHand.length < 3)) {
+    dealtCardImage.setAttribute('src', 'card-images/JPEG/blue_back.jpg');
+    document.querySelector(`#${targetHand[0].name}`).appendChild(dealtCardImage)
+  } else {
+    dealtCardImage.setAttribute('src', dealtCard.image);
+    document.querySelector(`#${targetHand[0].name}`).appendChild(dealtCardImage)
+  }
 
   console.log(dealtCard);
 };
@@ -56,7 +63,7 @@ const hit = function(targetHand) {
 //checks current value of hand
 const valueCheck = function(targetHand) {
   let handValue = 0;
-  for (let i = 0; i < targetHand.length; i++) {
+  for (let i = 1; i < (targetHand.length); i++) {
     handValue += targetHand[i].value
   }
   //returns number
@@ -79,7 +86,7 @@ const bustCheck = function(handValue) {
 // if going to bust, ace converts to value 1, returns true, else returns false
 const aceCheck = function(targetHand) {
   let aceCheck = false;
-  for (let i = 0; i < targetHand.length; i++) {
+  for (let i = 1; i < (targetHand.length); i++) {
     if (targetHand[i].value == 11) {
       targetHand[i].value = 1
       return aceCheck = true;
@@ -122,21 +129,6 @@ const winCheck = function () {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //set addEventListener:
 document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
 document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
@@ -148,13 +140,11 @@ shuffleTheDeck()
 firstDeal();
 
 //::::TEST::::
-console.log(playerHand)
-console.log(dealerHand)
-
-
-console.log(valueCheck(playerHand))
-console.log(valueCheck(dealerHand))
-
+console.log("playerHand: ", playerHand)
+console.log("dealerHand: ", dealerHand)
+console.log("valueCheck of playerHand ", valueCheck(playerHand))
+console.log("valueCheck of dealerHand ", valueCheck(dealerHand))
+//::::TESTS:::::
 
 
 
