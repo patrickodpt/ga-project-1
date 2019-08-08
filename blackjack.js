@@ -6,6 +6,10 @@ let scoreDivElem = document.querySelector('#scoreDiv')
 //function to start game
 document.querySelector('#playGame').addEventListener('click', () => {
   coverImage.style.visibility = 'hidden';
+  //call shuffle function
+  shuffleTheDeck();
+  //call firstDeal
+  firstDeal();
 });
 
 //initialize global objects/arrays/functions
@@ -157,11 +161,7 @@ document.querySelector('#stand').addEventListener('click', () => {dealersTurn()}
 
 
 // while (score < 3) {
-  //call shuffle function
-  shuffleTheDeck()
 
-  //call firstDeal
-  firstDeal();
 
   //playersTurn, I think.
 
