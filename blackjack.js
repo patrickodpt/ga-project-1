@@ -26,26 +26,93 @@ const shuffleTheDeck = function () {
 shuffleTheDeck()
 //::::TEST:::: console.log(shuffledDeck) :::: SEEMS TO WORK!
 
-//define first deal function
+//define generic deal function
+const dealCard = function (targetHand) {
+  targetHand.push(shuffledDeck.pop());
+};
+
+//define first deal.
 const firstDeal = function () {
+  // deal player 2 cards
   do {
-    playerHand.push(shuffledDeck.pop())
-  } while (playerHand.length < 2)
+    dealCard(playerHand);
+  } while (playerHand.length < 2);
+  // deal dealer 2 cards
   do {
-    dealerHand.push(shuffledDeck.pop())
-  } while (dealerHand.length < 2)
+    dealCard(dealerHand);
+  } while (dealerHand.length < 2);
 }
 
 //call firstDeal
-firstDeal()
-
+firstDeal();
+//::::TEST::::
 console.log(playerHand)
 console.log(dealerHand)
 
-let newCardInPlay = document.createElement('img')
-newCardInPlay.className = "card"
-newCardInPlay.setAttribute('src', playerHand[0].image)
-document.querySelector('#playerHand').appendChild(newCardInPlay)
+const hit = function(targetHand) {
+  dealCard(targetHand);
+  console.log(targetHand);
+}
+
+//give #hit element event listener for click to call hit()
+document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
+
+const valueCheck = function(targetHand) {
+  let handValue = 0;
+  for (let i = 0; i < targetHand.length; i++) {
+    handValue += targetHand[i].value
+  }
+  //returns number
+  return handValue
+}
+
+//returns boolean for if player/dealer busts
+const bustCheck = function(handValue) {
+  let bust;
+  if (handValue <= 21 ) {
+    bust = false;
+    return bust
+  }
+  bust = true;
+  //returns bool if handValue is > 21
+  return bust
+}
+
+
+const aceCheck = function(targetHand) {
+  let aceCheck;
+  for (let i = 0; i < targetHand.length) {
+    if targetHand[i].
+  }
+}
+
+
+valueCheck(playerHand)
+valueCheck(dealerHand)
+
+
+
+// // document.querySelector('button').addEventListener('click', function() {console.log("I WAS CLICK")})
+// document.querySelector('#stand').addEventListener('click', () => {
+//   finalDealerHandValue = dealerPlays();
+//   finalPlayerHandValue = evaluateHand(playerHand);
+//   winCheck(finalDealerHandValue, finalPlayerHandValue);
+// })
+
+
+
+
+// ::::TODO:::DISPLAY CARDS AS DEALT
+// const displayNewCard = function (i) {
+//   let newCardInPlay = document.createElement('img')
+//   newCardInPlay.className = "card"
+//   newCardInPlay.setAttribute('src', playerHand[i].image)
+//   document.querySelector('#playerHand').appendChild(newCardInPlay)
+// }
+
+
+
+
 
 
 
