@@ -39,10 +39,11 @@ const hit = function(targetHand) {
   if (bustCheck(valueCheck(targetHand))) {
      if (aceCheck(targetHand) == false) {
        console.log("Current Player BUSTED"); //TODO::::graphical functionality
-       playing = false;
+       // playing = false;
      }
   }
-  console.log(valueCheck(targetHand))
+  console.log("valueCheck in hit()", valueCheck(targetHand))
+  return valueCheck(targetHand)
 }
 
 //checks current value of hand
@@ -81,14 +82,54 @@ const aceCheck = function(targetHand) {
   return aceCheck
 }
 
-const playerTurn = function () {
+const dealersTurn = function () {
+  console.log("The dealer is going now");
+  let handValue = valueCheck(dealerHand);
 
-}
+  while (handValue < 17) {
+    handValue = hit(dealerHand);
+    console.log("The dealer hit. Now has: ", handValue);
+  }
+
+  if (handValue == 21) {
+    console.log("The deal has blackjack: ", handValue);
+    winCheck();
+  } else if (handValue >= 17 && handValue < 21) {
+    console.log("The dealer has a strong hand: ", handValue);
+    winCheck();
+  }
+};
+
+const winCheck = function () {
+  let finalPlayerHandValue = valueCheck(playerHand)
+  let finalDealerHandValue = valueCheck(dealerHand)
+  if (finalDealerHandValue > finalPlayerHandValue) {
+    console.log("dealer wins")
+  } else if (finalDealerHandValue < finalPlayerHandValue) {
+    console.log("player wins")
+  } else if (finalDealerHandValue == finalPlayerHandValue) {
+    console.log("It's a tie!")
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //set addEventListener:
 document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
-
+document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
 
 
 //call shuffle function

@@ -11,6 +11,11 @@ body {
   border: solid black;
 }
 
+h1 {
+  background-color: green;
+  border: solid pink;
+}
+
 #gameBoard {
   padding: 10px;
   display: flex;
