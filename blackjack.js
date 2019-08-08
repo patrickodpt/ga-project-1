@@ -2,8 +2,8 @@
 function startGame() {
 }
 //initialize global objects/arrays/functions
-let playerHand = [];
-let dealerHand = [];
+let playerHand = [{name: 'playerHand'}];
+let dealerHand = [{name: 'dealerHand'}];
 let shuffledDeck = [];
 let playing;
 //                              const functions below:
@@ -17,7 +17,14 @@ const shuffleTheDeck = function () {
 
 //define generic deal function
 const dealCard = function (targetHand) {
-  targetHand.push(shuffledDeck.pop());
+  let dealtCard = shuffledDeck.pop();
+  targetHand.push(dealtCard);
+  let dealtCardImage = document.createElement('img');
+  dealtCardImage.setAttribute('src', dealtCard.image);
+  dealtCardImage.className = 'card';
+  document.querySelector('#playerHand').appendChild(dealtCardImage)
+
+  console.log(dealtCard);
 };
 
 //define first deal.
@@ -25,11 +32,11 @@ const firstDeal = function () {
   // deal player 2 cards
   do {
     dealCard(playerHand);
-  } while (playerHand.length < 2);
+  } while (playerHand.length < 3); //need to be three because inital length is 1 as object for name exists
   // deal dealer 2 cards
   do {
     dealCard(dealerHand);
-  } while (dealerHand.length < 2);
+  } while (dealerHand.length < 3);
 }
 
 //define hit function, which calls bustCheck and aceCheck if bust is true.
@@ -39,7 +46,7 @@ const hit = function(targetHand) {
   if (bustCheck(valueCheck(targetHand))) {
      if (aceCheck(targetHand) == false) {
        console.log("Current Player BUSTED"); //TODO::::graphical functionality
-       // playing = false;
+       playing = false;
      }
   }
   console.log("valueCheck in hit()", valueCheck(targetHand))
@@ -75,7 +82,7 @@ const aceCheck = function(targetHand) {
   for (let i = 0; i < targetHand.length; i++) {
     if (targetHand[i].value == 11) {
       targetHand[i].value = 1
-      aceCheck = true;
+      return aceCheck = true;
     }
   }
   //returns whether or not ace present and value conversion occurs
@@ -105,10 +112,13 @@ const winCheck = function () {
   let finalDealerHandValue = valueCheck(dealerHand)
   if (finalDealerHandValue > finalPlayerHandValue) {
     console.log("dealer wins")
+    playing = false;
   } else if (finalDealerHandValue < finalPlayerHandValue) {
     console.log("player wins")
+    playing = false;
   } else if (finalDealerHandValue == finalPlayerHandValue) {
     console.log("It's a tie!")
+    playing = false;
   }
 };
 
@@ -131,12 +141,12 @@ const winCheck = function () {
 document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
 document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
 
-
 //call shuffle function
 shuffleTheDeck()
 
 //call firstDeal
 firstDeal();
+
 //::::TEST::::
 console.log(playerHand)
 console.log(dealerHand)
@@ -144,6 +154,8 @@ console.log(dealerHand)
 
 console.log(valueCheck(playerHand))
 console.log(valueCheck(dealerHand))
+
+
 
 
 
