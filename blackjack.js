@@ -11,7 +11,7 @@ let dealerHand = [{name: 'dealerHand'}];
 let deckCopy = [...deck] //make copy to allow 6 decks to be created by shuffleTheDeck()
 let shuffledDeck = [];
 let playing = true;
-// let score = 0;
+let score = 0;
 
 //set addEventListener:
 document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
@@ -101,8 +101,8 @@ const hit = function(targetHand) {
          scoreDivElem.innerHTML = "PLAYER LOSES: BUSTED"
          gameOver();
        } else if (targetHand[0].name == 'dealerHand') {
+         score += 1; //need to work score counter
          scoreDivElem.innerHTML = "DEALER LOSES: BUSTED"
-         // score += 1; //need to work score counter
          gameOver();
        }
      }
@@ -178,12 +178,12 @@ const dealersTurn = function () {
 
 const winCheck = function () {
   if (valueCheck(dealerHand) > valueCheck(playerHand)) {
-    scoreDivElem.innerHTML = "DEALER WINS"
+    scoreDivElem.innerHTML = "DEALER WINS";
     gameOver();
   } else if (valueCheck(dealerHand) < valueCheck(playerHand)) {
-    scoreDivElem.innerHTML = "PLAYER WINS"
+    score += 1;
+    scoreDivElem.innerHTML = "PLAYER WINS";
     gameOver();
-    // score++;
   } else if (valueCheck(dealerHand) == valueCheck(playerHand)) {
     scoreDivElem.innerHTML = "TIES"
     gameOver();
@@ -202,9 +202,10 @@ const gameOver = function () {
   document.querySelector('#stand').style.visibility = "hidden";
   // document.querySelector('#score').innerText = score.toString(); // attempt to display score
   // playGameButton.style["font-size"] = '10px';
-  playGameButton.style.width = '300px';
-  playGameButton.style.height = '100px';
+  playGameButton.style.width = '350px';
+  playGameButton.style.height = '130px';
   playGameButton.innerHTML = "CLICK TO PLAY AGAIN!"
   deckImage.remove();
   document.querySelector('#deck').appendChild(playGameButton);
+  console.log("Score: ", score)
 }
