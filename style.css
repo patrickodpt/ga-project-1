@@ -21,6 +21,10 @@ on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-c
   visibility: visible;
 }
 
+#deck {
+  border: solid blue;
+}
+
 #playGame {
   display: flex;
   justify-content: center;
@@ -70,6 +74,11 @@ h1 {
 #deck-image {
   width: 60px;
   /* border: solid black; */
+}
+
+#deck {
+  display: flex;
+  justify-content: space-around;
 }
 
 #playerHand {

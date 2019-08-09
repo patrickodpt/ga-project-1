@@ -2,13 +2,15 @@
 let coverImage = document.querySelector('#wrapper')
 let scoreDivElem = document.querySelector('#scoreDiv')
 let playGameButton = document.querySelector('#playGame')
+let deckImage = document.querySelector('#deck-image')
 
 //initialize global objects/arrays/functions
 let playerHand = [{name: 'playerHand'}];
 let dealerHand = [{name: 'dealerHand'}];
+let deckCopy = [...deck] //make copy to allow 6 decks to be created by shuffleTheDeck()
 let shuffledDeck = [];
 let playing = true;
-let score = 0;
+// let score = 0;
 
 //set addEventListener:
 document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
@@ -17,15 +19,21 @@ document.querySelector('#stand').addEventListener('click', () => {dealersTurn()}
 //function to start game
 playGameButton.addEventListener('click', () => {
   coverImage.style.visibility = 'hidden';
-  //call shuffle function
-  shuffleTheDeck();
-  console.log(shuffledDeck.length)
+
   if (playing == false) {
+    shuffledDeck = [];
     playerHand = resetHand(playerHand);
     dealerHand = resetHand(dealerHand);
     scoreDivElem.innerHTML = "MESSAGES GO HERE"
+    playGameButton.remove();
+    document.querySelector('#deck').appendChild(deckImage);
     playing = true;
   }
+
+  //call shuffle function
+  shuffleTheDeck();
+  console.log(shuffledDeck.length)
+
   //call firstDeal
   firstDeal();
 
@@ -34,18 +42,21 @@ playGameButton.addEventListener('click', () => {
 
   // NEED TO REMOVE GAME BUTTON ON REPLAY
   // playGameButton.remove();
-
 });
 
 
 //functions below:
 //define shuffle function
 const shuffleTheDeck = function () {
-  while (deck.length > 0){
-    let randomIndex = Math.floor(Math.random() * 52)
-    shuffledDeck.push(...deck.splice(randomIndex, 1))
+  for (let i = 0; i < 6; i++) { //allows deck to be n number of decks combined. casino BJ uses 6-8.
+    while (deckCopy.length > 0){
+      let randomIndex = Math.floor(Math.random() * 52)
+      shuffledDeck.push(...deckCopy.splice(randomIndex, 1))
+    }
+    deckCopy = [...deck]
   }
 }
+
 
 //define generic deal function
 const dealCard = function (targetHand) {
@@ -87,6 +98,7 @@ const hit = function(targetHand) {
            gameOver();
          } else if (targetHand[0].name == 'dealerHand') {
            scoreDivElem.innerHTML = "DEALER LOSES: BUSTED"
+           // score += 1; //need to work score counter
            gameOver();
          }
        }
@@ -164,6 +176,7 @@ const winCheck = function () {
   } else if (valueCheck(dealerHand) < valueCheck(playerHand)) {
     scoreDivElem.innerHTML = "PLAYER WINS"
     gameOver();
+    // score++;
   } else if (valueCheck(dealerHand) == valueCheck(playerHand)) {
     scoreDivElem.innerHTML = "TIES"
     gameOver();
@@ -180,6 +193,11 @@ const gameOver = function () {
   playing = false;
   document.querySelector('#hit').style.visibility = "hidden";
   document.querySelector('#stand').style.visibility = "hidden";
+  // document.querySelector('#score').innerText = score.toString(); // attempt to display score
   playGameButton.style["font-size"] = '10px';
-  document.querySelector('#info-row').appendChild(playGameButton);
+  playGameButton.style.width = '25%';
+  playGameButton.style.height = '60px';
+  playGameButton.innerHTML = "CLICK TO PLAY AGAIN!"
+  deckImage.remove();
+  document.querySelector('#deck').appendChild(playGameButton);
 }
