@@ -3,6 +3,7 @@
 * {
   box-sizing: content-box;
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* basic wrapper CSS to cover entire screen for inital screen and win screen from Michael Schmidt on
@@ -18,6 +19,28 @@ on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-c
   width: 100%;
   height: 100%;
   background: grey;
+  visibility: visible;
+  border: solid black;
+}
+
+#center-board {
+  display: flex;
+  justify-content: space-around;
+  border: solid pink;
+}
+
+button {
+  border-radius: 10px;
+  width: 25%;
+  font-size: 40px;
+  font-weight: bold;
+  border: solid black;
+}
+#hit {
+  visibility: visible;
+}
+
+#stand {
   visibility: visible;
 }
 
@@ -36,6 +59,7 @@ on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-c
   width: 50%;
   height: 25%;
   border-radius: 25px;
+  border: solid black;
 }
 
 
@@ -43,11 +67,13 @@ body {
   display: flex;
   flex-flow: column;
   /* border: solid black; */
+  border: solid black;
 }
 
 h1 {
   background-color: green;
   /* border: solid pink; */
+  border: solid black;
 }
 
 #gameBoard {
@@ -60,6 +86,7 @@ h1 {
   background-color: green;
   align-self: center;
   /* border: solid black; */
+  border: solid black;
 }
 
 #dealerHand {
@@ -69,16 +96,18 @@ h1 {
   /* border: solid black; */
   align-self: center;
   justify-content: center;
+  border: solid black;
 }
 
-#deck-image {
+/* #deck-image {
   width: 60px;
-  /* border: solid black; */
-}
+  /* border: solid black;
+} */
 
 #deck {
   display: flex;
   justify-content: space-around;
+  border: solid black;
 }
 
 #playerHand {
@@ -88,14 +117,11 @@ h1 {
   /* border: solid blue; */
   align-self: center;
   justify-content: center;
-}
-
-button {
-  /* put buttons side by side */
+  border: solid black;
 }
 
 .card {
-  width: 60px;
+  width: 80px;
   border: solid black;
 }
 
@@ -109,14 +135,6 @@ button {
   display: flex;
   flex-flow: column;
   /* border: solid yellow; */
-}
-
-#hit {
-  visibility: visible;
-}
-
-#stand {
-  visibility: visible;
 }
 
 /* #info-row {

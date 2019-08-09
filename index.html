@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>Blackjack!</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="wrapper">
-      <button id="playGame"> PLAY GAME </button>
+      <button id="playGame">PLAY BLACKJACK</button>
     </div>
 
     <h1>PLAY BLACKJACK</h1>
@@ -17,8 +18,12 @@
         <div class="hand" id="dealerHand"></div>
       </div>
 
-      <div id="deck">
-        <img src="card-images/JPEG/blue_back.jpg" alt="deck of cards" id="deck-image">
+      <div id="center-board">
+        <button id="hit">HIT</button>
+        <div id="deck">
+          <img src="card-images/JPEG/blue_back.jpg" alt="deck of cards" id="deck-image" class="card">
+        </div>
+        <button id="stand">STAND</button>
       </div>
 
       <div id="playerDiv">
@@ -26,10 +31,9 @@
         <div class="hand" id="playerHand">
         </div>
       </div>
+
       <div id="info-row">
         <div id="scoreDiv">MESSAGES GO HERE <span id="score"></span></div>
-        <button id="hit">HIT</button>
-        <button id="stand">STAND</button>
       </div>
 
 

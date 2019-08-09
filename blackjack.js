@@ -6,6 +6,7 @@ let deckImage = document.querySelector('#deck-image')
 
 //initialize global objects/arrays/functions
 let playerHand = [{name: 'playerHand'}];
+
 let dealerHand = [{name: 'dealerHand'}];
 let deckCopy = [...deck] //make copy to allow 6 decks to be created by shuffleTheDeck()
 let shuffledDeck = [];
@@ -92,17 +93,20 @@ const hit = function(targetHand) {
   dealCard(targetHand);
   console.log(targetHand);
   if (bustCheck(valueCheck(targetHand))) {
-     if (aceCheck(targetHand) == false) {
-         if (targetHand[0].name == 'playerHand') {
-           scoreDivElem.innerHTML = "PLAYER LOSES: BUSTED"
-           gameOver();
-         } else if (targetHand[0].name == 'dealerHand') {
-           scoreDivElem.innerHTML = "DEALER LOSES: BUSTED"
-           // score += 1; //need to work score counter
-           gameOver();
-         }
+
+    let aceBool = aceCheck(targetHand);
+    // need to bust even if aceCheck is true and returns a smaller value
+    if (aceBool == false || (aceBool == true && valueCheck(targetHand) > 21)){
+       if (targetHand[0].name == 'playerHand') {
+         scoreDivElem.innerHTML = "PLAYER LOSES: BUSTED"
+         gameOver();
+       } else if (targetHand[0].name == 'dealerHand') {
+         scoreDivElem.innerHTML = "DEALER LOSES: BUSTED"
+         // score += 1; //need to work score counter
+         gameOver();
        }
      }
+   }
    console.log("valueCheck in hit()", valueCheck(targetHand))
    return valueCheck(targetHand)
 }
@@ -135,9 +139,12 @@ const bustCheck = function(handValue) {
 const aceCheck = function(targetHand) {
   let aceCheck = false;
   for (let i = 1; i < (targetHand.length); i++) {
+    //if unconverted ace is available:
     if (targetHand[i].value == 11) {
-      targetHand[i].value = 1
-      return aceCheck = true;
+      if (valueCheck(targetHand) > 21){
+        targetHand[i].value = 1
+        aceCheck = true;
+      }
     }
   }
   //returns whether or not ace present and value conversion occurs
@@ -164,7 +171,7 @@ const dealersTurn = function () {
     console.log("The dealer has a strong hand: ", handValue);
     winCheck();
   } else if (handValue > 21) {
-    console.log("not sure how we got here. something broke")
+    console.log("The dealer busted!!!")
     gameOver();
   }
 };
@@ -194,9 +201,9 @@ const gameOver = function () {
   document.querySelector('#hit').style.visibility = "hidden";
   document.querySelector('#stand').style.visibility = "hidden";
   // document.querySelector('#score').innerText = score.toString(); // attempt to display score
-  playGameButton.style["font-size"] = '10px';
-  playGameButton.style.width = '25%';
-  playGameButton.style.height = '60px';
+  // playGameButton.style["font-size"] = '10px';
+  playGameButton.style.width = '300px';
+  playGameButton.style.height = '100px';
   playGameButton.innerHTML = "CLICK TO PLAY AGAIN!"
   deckImage.remove();
   document.querySelector('#deck').appendChild(playGameButton);
