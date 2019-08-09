@@ -207,5 +207,5 @@ const gameOver = function () {
   playGameButton.innerHTML = "CLICK TO PLAY AGAIN!"
   deckImage.remove();
   document.querySelector('#deck').appendChild(playGameButton);
-  console.log("Score: ", score)
+  document.querySelector('#score').innerHTML = `Score: ${score}`
 }
