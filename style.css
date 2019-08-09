@@ -1,7 +1,7 @@
 /* source of card images: http://acbl.mybigcommerce.com/52-playing-cards/ */
 
 * {
-  box-sizing: content-box;
+  /* box-sizing: content-box; */
   text-align: center;
   font-family: 'Roboto', sans-serif;
 }
@@ -20,13 +20,13 @@ on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-c
   height: 100%;
   background: grey;
   visibility: visible;
-  border: solid black;
+  /* border: solid black; */
 }
 
 #center-board {
   display: flex;
   justify-content: space-around;
-  border: solid pink;
+  /* border: solid pink; */
 }
 
 button {
@@ -45,7 +45,7 @@ button {
 }
 
 #deck {
-  border: solid blue;
+  /* border: solid blue; */
 }
 
 #playGame {
@@ -67,13 +67,12 @@ body {
   display: flex;
   flex-flow: column;
   /* border: solid black; */
-  border: solid black;
 }
 
 h1 {
   background-color: green;
-  /* border: solid pink; */
-  border: solid black;
+  border: solid pink;
+  /* border: solid black; */
 }
 
 #gameBoard {
@@ -86,55 +85,57 @@ h1 {
   background-color: green;
   align-self: center;
   /* border: solid black; */
-  border: solid black;
+}
+
+.hand {
+  display: flex;
+  width: 500px;
+  align-self: center;
+  justify-content: center;
+  /* border: solid yellow; */
+}
+
+#playerHand {
+
 }
 
 #dealerHand {
-  display: flex;
-  width: 500px;
-  height: 90px;
-  /* border: solid black; */
-  align-self: center;
-  justify-content: center;
-  border: solid black;
 }
 
 /* #deck-image {
-  width: 60px;
-  /* border: solid black;
-} */
+  width: 60px;*/
 
 #deck {
   display: flex;
   justify-content: space-around;
-  border: solid black;
-}
-
-#playerHand {
-  display: flex;
-  width: 500px;
-  height: 90px;
-  /* border: solid blue; */
-  align-self: center;
-  justify-content: center;
-  border: solid black;
+  /* border: solid black; */
 }
 
 .card {
   width: 80px;
   border: solid black;
+  margin: 0 10px;
 }
 
 #playerDiv {
   display: flex;
   flex-flow: column-reverse;
-  /* border: solid yellow; */
 }
 
 #dealerDiv {
   display: flex;
   flex-flow: column;
-  /* border: solid yellow; */
+}
+
+h2 {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 50px;
+  background-color: black;
+  color: white;
 }
 
 /* #info-row {
