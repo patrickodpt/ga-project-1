@@ -19,7 +19,7 @@ playGameButton.addEventListener('click', () => {
   coverImage.style.visibility = 'hidden';
   //call shuffle function
   shuffleTheDeck();
-
+  console.log(shuffledDeck.length)
   if (playing == false) {
     playerHand = resetHand(playerHand);
     dealerHand = resetHand(dealerHand);
@@ -53,10 +53,8 @@ const dealCard = function (targetHand) {
   targetHand.push(dealtCard);
   let dealtCardImage = document.createElement('img');
   dealtCardImage.className = 'card';
-
   // if the dealer got his first card, don't show it.
   if ((targetHand[0].name == 'dealerHand') && (dealerHand.length < 3)) {
-    // dealtCardImage.setAttribute('id', 'first-card') //might not need this id.
     dealtCardImage.setAttribute('src', 'card-images/JPEG/blue_back.jpg');
     document.querySelector(`#${targetHand[0].name}`).appendChild(dealtCardImage)
   } else {
@@ -64,12 +62,10 @@ const dealCard = function (targetHand) {
     dealtCardImage.setAttribute('src', dealtCard.image);
     document.querySelector(`#${targetHand[0].name}`).appendChild(dealtCardImage)
   }
-  console.log(dealtCard);
 };
 
 //define first deal.
 const firstDeal = function () {
-  console.log([...playerHand])
   // deal player 2 cards
   do {
     dealCard(playerHand);
@@ -155,22 +151,20 @@ const dealersTurn = function () {
   } else if (handValue >= 17 && handValue < 21) {
     console.log("The dealer has a strong hand: ", handValue);
     winCheck();
+  } else if (handValue > 21) {
+    console.log("not sure how we got here. something broke")
+    gameOver();
   }
 };
 
 const winCheck = function () {
-  let finalPlayerHandValue = valueCheck(playerHand)
-  let finalDealerHandValue = valueCheck(dealerHand)
-  if (finalDealerHandValue > finalPlayerHandValue) {
-    console.log("dealer wins");
+  if (valueCheck(dealerHand) > valueCheck(playerHand)) {
     scoreDivElem.innerHTML = "DEALER WINS"
     gameOver();
-  } else if (finalDealerHandValue < finalPlayerHandValue) {
-    console.log("player wins");
+  } else if (valueCheck(dealerHand) < valueCheck(playerHand)) {
     scoreDivElem.innerHTML = "PLAYER WINS"
     gameOver();
-  } else if (finalDealerHandValue == finalPlayerHandValue) {
-    console.log("It's a tie!");
+  } else if (valueCheck(dealerHand) == valueCheck(playerHand)) {
     scoreDivElem.innerHTML = "TIES"
     gameOver();
   }
