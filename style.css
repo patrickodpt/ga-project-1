@@ -4,6 +4,7 @@
   /* box-sizing: content-box; */
   text-align: center;
   font-family: 'Roboto', sans-serif;
+  text-decoration: none;
 }
 
 /* basic wrapper CSS to cover entire screen for inital screen and win screen from Michael Schmidt on
@@ -20,7 +21,7 @@ on stack overflow: https://stackoverflow.com/questions/18588835/allow-a-div-to-c
   height: 100%;
   background: grey;
   visibility: visible;
-  /* border: solid black; */
+  border: solid blue;
 }
 
 #center-board {
@@ -66,6 +67,9 @@ button {
 body {
   display: flex;
   flex-flow: column;
+  align-content: stretch;
+  justify-content: center;
+
   /* border: solid black; */
 }
 
@@ -73,6 +77,11 @@ h1 {
   background-color: green;
   border: solid pink;
   /* border: solid black; */
+  justify-content: center;
+  align-content: stretch;
+  margin: 0;
+  padding: 0;
+
 }
 
 #gameBoard {
