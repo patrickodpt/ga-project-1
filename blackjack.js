@@ -156,6 +156,21 @@ const aceCheck = function(targetHand) {
   return aceCheck
 }
 
+const aceReset = function() {
+  for (let i = 1; i < playerHand.length; i++) {
+    console.log('made it into the for loop')
+    if (playerHand[i].value == 1){
+      playerHand[i].value = 11;
+    }
+  }
+
+  for (let i = 1; i < dealerHand.length; i++) {
+    if (dealerHand[i].value == 1){
+      dealerHand[i].value = 11;
+    }
+  }
+}
+
 //contains dealer logic.
 const dealersTurn = function () {
   //show card
@@ -192,12 +207,13 @@ const winCheck = function () {
 };
 
 const resetHand = function (targetHand) {
-  document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove())  //need to review syntax here.
-  targetHand = [targetHand[0]]
+  document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove());//need to review syntax here.
+  targetHand = [targetHand[0]];
   return targetHand
 }
 
 const gameOver = function () {
+  aceReset(); // resets adjusted ace values from 1 back to 11.
   playing = false;
   document.querySelector('#hit').style.visibility = "hidden";
   document.querySelector('#stand').style.visibility = "hidden";
