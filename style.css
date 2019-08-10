@@ -149,20 +149,37 @@ h1 {
   /* border: solid blue; */
 }
 
-#playerGamePieces {
+.pieceBoard {
   display: flex;
   flex-flow: row;
   justify-content: space-around;
   /* border: solid black; */
 }
 
-#notificationDiv {
+.rightBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  font-weight: bold;
+  width: 20%;
+  background: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* http://clipartmag.com/poker-chips-drawing#poker-chips-drawing-2.png */
+  background-image: url("other-images/chip-drawing.png");
+  border: solid black;
+  border-radius: 100px;
+}
+
+.leftBox {
   display: flex;
   align-content: center;
   justify-content: center;
   align-items: center;
   background-color: #a95521;
   border-radius: 10px;
+  border: solid black;
   width: 20%;
   /* border: solid pink; */
   font-size: 30px;
@@ -170,23 +187,9 @@ h1 {
   color: black;
 }
 
-#playerHandValue {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 50px;
-  font-weight: bold;
-  width: 20%;
-  /* border: solid yellow; */
-  /* background-size: cover; */
-  background: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  /* http://clipartmag.com/poker-chips-drawing#poker-chips-drawing-2.png */
-  background-image: url("other-images/chip-drawing.png");
+#surpriseButton {
+  visibility: hidden;
 }
-
-
 
 #dealerDiv {
   display: flex;
@@ -202,6 +205,7 @@ h2 {
   height: 50px;
   background-color: black;
   color: white;
+  /* border: solid white; */
 }
 
 /* #info-row {

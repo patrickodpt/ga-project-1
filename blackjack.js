@@ -17,7 +17,11 @@ let score = 0;
 //set addEventListener:
 document.querySelector('#hit').addEventListener('click', function() {
   let currentValue = hit(playerHand);
-  document.querySelector('#playerHandValue').innerHTML = currentValue; ///??????????///
+  if (currentValue <= 21) {
+    document.querySelector('#playerHandValue').innerHTML = currentValue;
+  } else if (currentValue > 21) {
+    document.querySelector('#playerHandValue').innerHTML = "B";
+  }
 })
 document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
 
@@ -43,6 +47,7 @@ playGameButton.addEventListener('click', () => {
   //call firstDeal
   firstDeal();
   document.querySelector('#playerHandValue').innerHTML = valueCheck(playerHand)
+  document.querySelector('#dealerHandValue').innerHTML = dealerHand[2].value;
 
   document.querySelector('#hit').style.visibility = "visible";
   document.querySelector('#stand').style.visibility = "visible";
@@ -103,11 +108,11 @@ const hit = function(targetHand) {
     // need to bust even if aceCheck is true and returns a smaller value
     if (aceBool == false || (aceBool == true && valueCheck(targetHand) > 21)){
        if (targetHand[0].name == 'playerHand') {
-         notificationElem.innerHTML = "YOU BUSTED"
+         notificationElem.innerHTML = "YOU BUSTED";
          gameOver();
        } else if (targetHand[0].name == 'dealerHand') {
          score += 1; //need to work score counter
-         notificationElem.innerHTML = "DEALER BUSTED"
+         notificationElem.innerHTML = "DEALER BUSTED";
          gameOver();
        }
      }
@@ -146,7 +151,6 @@ const aceCheck = function(targetHand) {
     //if unconverted ace is available:
     if (targetHand[i].value == 11) {
       if (valueCheck(targetHand) > 21){
-        console.log("I END UP LOWERING THE ACE FOR NO GOOD REASON")
         targetHand[i].value = 1
         aceCheck = true;
       }
@@ -157,13 +161,13 @@ const aceCheck = function(targetHand) {
 }
 
 const aceReset = function() {
+  //explict: loop through playerHand and reset any ace value.
   for (let i = 1; i < playerHand.length; i++) {
-    console.log('made it into the for loop')
     if (playerHand[i].value == 1){
       playerHand[i].value = 11;
     }
   }
-
+    //explict: loop through dealerHand and reset any ace value.
   for (let i = 1; i < dealerHand.length; i++) {
     if (dealerHand[i].value == 1){
       dealerHand[i].value = 11;
@@ -175,7 +179,7 @@ const aceReset = function() {
 const dealersTurn = function () {
   //show card
   // let firstCardImage = dealerHand[1].image
-  document.querySelector('#dealerHand > .card').setAttribute('src', dealerHand[1].image)
+  document.querySelector('#dealerHand > .card').setAttribute('src', dealerHand[1].image);
 
   let handValue = valueCheck(dealerHand);
 
@@ -183,18 +187,25 @@ const dealersTurn = function () {
     handValue = hit(dealerHand);
   }
 
+  if (handValue <= 21) {
+    document.querySelector('#dealerHandValue').innerHTML = valueCheck(dealerHand);
+  } else if (handValue > 21) {
+    document.querySelector('#dealerHandValue').innerHTML = "B";
+  }
+
   if (handValue == 21) {
     winCheck();
   } else if (handValue >= 17 && handValue < 21) {
     winCheck();
   } else if (handValue > 21) {
+    //shouldn't need this condition
     gameOver();
   }
 };
 
 const winCheck = function () {
   if (valueCheck(dealerHand) > valueCheck(playerHand)) {
-    notificationElem.innerHTML = "DEALER WINS?!";
+    notificationElem.innerHTML = "DEALER WINS?";
     gameOver();
   } else if (valueCheck(dealerHand) < valueCheck(playerHand)) {
     score += 1;

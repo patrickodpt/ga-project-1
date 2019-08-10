@@ -18,7 +18,11 @@
 
         <div id="dealerDiv">
           <h2>DEALER HAND</h2>
-          <div class="hand" id="dealerHand"></div>
+          <div id="dealerGamePieces" class="pieceBoard">
+            <div id="surpriseButton" class="leftBox"></div>
+            <div class="hand" id="dealerHand"></div>
+            <div id="dealerHandValue" class="rightBox"></div>
+          </div>
         </div>
 
         <div id="center-board">
@@ -31,10 +35,10 @@
 
         <div id="playerDiv">
           <h2>PLAYER HAND</h2>
-          <div id="playerGamePieces">
-            <div id="notificationDiv"> Good Luck!</div>
+          <div id="playerGamePieces" class="pieceBoard">
+            <div id="notificationDiv" class="leftBox"> Good Luck!</div>
             <div class="hand" id="playerHand"><!-- cards go here --></div>
-            <div id="playerHandValue">21</div>
+            <div id="playerHandValue" class="rightBox">21</div>
           </div>
         </div>
 
