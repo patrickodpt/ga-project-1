@@ -8,6 +8,7 @@ let deckImage = document.querySelector('#deck-image')
 let playerHand = [{name: 'playerHand'}];
 
 let dealerHand = [{name: 'dealerHand'}];
+
 let deckCopy = [...deck] //make copy to allow 6 decks to be created by shuffleTheDeck()
 let shuffledDeck = [];
 let playing = true;
@@ -16,8 +17,7 @@ let score = 0;
 //set addEventListener:
 document.querySelector('#hit').addEventListener('click', function() {
   let currentValue = hit(playerHand);
-  document.querySelector('#playerHandValue').innerHTML = currentValue;
-
+  document.querySelector('#playerHandValue').innerHTML = currentValue; ///??????????///
 })
 document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
 
@@ -26,6 +26,7 @@ playGameButton.addEventListener('click', () => {
   coverImage.style.visibility = 'hidden';
 
   if (playing == false) {
+    deckCopy = [...deck];
     shuffledDeck = [];
     playerHand = resetHand(playerHand);
     dealerHand = resetHand(dealerHand);
@@ -41,7 +42,6 @@ playGameButton.addEventListener('click', () => {
 
   //call firstDeal
   firstDeal();
-
   document.querySelector('#playerHandValue').innerHTML = valueCheck(playerHand)
 
   document.querySelector('#hit').style.visibility = "visible";
@@ -50,7 +50,6 @@ playGameButton.addEventListener('click', () => {
   // NEED TO REMOVE GAME BUTTON ON REPLAY
   // playGameButton.remove();
 });
-
 
 //functions below:
 //define shuffle function
@@ -143,10 +142,11 @@ const bustCheck = function(handValue) {
 // if going to bust, ace converts to value 1, returns true, else returns false
 const aceCheck = function(targetHand) {
   let aceCheck = false;
-  for (let i = 1; i < (targetHand.length); i++) {
+  for (let i = 1; i < targetHand.length; i++) {
     //if unconverted ace is available:
     if (targetHand[i].value == 11) {
       if (valueCheck(targetHand) > 21){
+        console.log("I END UP LOWERING THE ACE FOR NO GOOD REASON")
         targetHand[i].value = 1
         aceCheck = true;
       }
@@ -186,14 +186,14 @@ const winCheck = function () {
     notificationElem.innerHTML = "PLAYER WINS!";
     gameOver();
   } else if (valueCheck(dealerHand) == valueCheck(playerHand)) {
-    notificationElem.innerHTML = "YOUR TIED!"
+    notificationElem.innerHTML = "YOU TIED!"
     gameOver();
   }
 };
 
 const resetHand = function (targetHand) {
   document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove())  //need to review syntax here.
-  targetHand = [ targetHand[0] ]
+  targetHand = [targetHand[0]]
   return targetHand
 }
 
