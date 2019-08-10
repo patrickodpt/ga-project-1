@@ -1,6 +1,6 @@
 // saves container for node of wrapper div
 let coverImage = document.querySelector('#wrapper')
-let scoreDivElem = document.querySelector('#scoreDiv')
+let notificationElem = document.querySelector('#notificationDiv')
 let playGameButton = document.querySelector('#playGame')
 let deckImage = document.querySelector('#deck-image')
 
@@ -14,7 +14,11 @@ let playing = true;
 let score = 0;
 
 //set addEventListener:
-document.querySelector('#hit').addEventListener('click', function() {hit(playerHand)})
+document.querySelector('#hit').addEventListener('click', function() {
+  let currentValue = hit(playerHand);
+  document.querySelector('#playerHandValue').innerHTML = currentValue;
+
+})
 document.querySelector('#stand').addEventListener('click', () => {dealersTurn()})
 
 //function to start game
@@ -25,7 +29,7 @@ playGameButton.addEventListener('click', () => {
     shuffledDeck = [];
     playerHand = resetHand(playerHand);
     dealerHand = resetHand(dealerHand);
-    scoreDivElem.innerHTML = "MESSAGES GO HERE"
+    notificationElem.innerHTML = "GOOD LUCK!"
     playGameButton.remove();
     document.querySelector('#deck').appendChild(deckImage);
     playing = true;
@@ -37,6 +41,8 @@ playGameButton.addEventListener('click', () => {
 
   //call firstDeal
   firstDeal();
+
+  document.querySelector('#playerHandValue').innerHTML = valueCheck(playerHand)
 
   document.querySelector('#hit').style.visibility = "visible";
   document.querySelector('#stand').style.visibility = "visible";
@@ -98,16 +104,15 @@ const hit = function(targetHand) {
     // need to bust even if aceCheck is true and returns a smaller value
     if (aceBool == false || (aceBool == true && valueCheck(targetHand) > 21)){
        if (targetHand[0].name == 'playerHand') {
-         scoreDivElem.innerHTML = "PLAYER LOSES: BUSTED"
+         notificationElem.innerHTML = "YOU BUSTED"
          gameOver();
        } else if (targetHand[0].name == 'dealerHand') {
          score += 1; //need to work score counter
-         scoreDivElem.innerHTML = "DEALER LOSES: BUSTED"
+         notificationElem.innerHTML = "DEALER BUSTED"
          gameOver();
        }
      }
    }
-   console.log("valueCheck in hit()", valueCheck(targetHand))
    return valueCheck(targetHand)
 }
 
@@ -153,7 +158,6 @@ const aceCheck = function(targetHand) {
 
 //contains dealer logic.
 const dealersTurn = function () {
-  console.log("The dealer is going now");
   //show card
   // let firstCardImage = dealerHand[1].image
   document.querySelector('#dealerHand > .card').setAttribute('src', dealerHand[1].image)
@@ -162,30 +166,27 @@ const dealersTurn = function () {
 
   while (handValue < 17) {
     handValue = hit(dealerHand);
-    console.log("The dealer hit. Now has: ", handValue);
   }
+
   if (handValue == 21) {
-    console.log("The deal has blackjack: ", handValue);
     winCheck();
   } else if (handValue >= 17 && handValue < 21) {
-    console.log("The dealer has a strong hand: ", handValue);
     winCheck();
   } else if (handValue > 21) {
-    console.log("The dealer busted!!!")
     gameOver();
   }
 };
 
 const winCheck = function () {
   if (valueCheck(dealerHand) > valueCheck(playerHand)) {
-    scoreDivElem.innerHTML = "DEALER WINS";
+    notificationElem.innerHTML = "DEALER WINS?!";
     gameOver();
   } else if (valueCheck(dealerHand) < valueCheck(playerHand)) {
     score += 1;
-    scoreDivElem.innerHTML = "PLAYER WINS";
+    notificationElem.innerHTML = "PLAYER WINS!";
     gameOver();
   } else if (valueCheck(dealerHand) == valueCheck(playerHand)) {
-    scoreDivElem.innerHTML = "TIES"
+    notificationElem.innerHTML = "YOUR TIED!"
     gameOver();
   }
 };
@@ -207,5 +208,5 @@ const gameOver = function () {
   playGameButton.innerHTML = "CLICK TO PLAY AGAIN!"
   deckImage.remove();
   document.querySelector('#deck').appendChild(playGameButton);
-  document.querySelector('#score').innerHTML = `Score: ${score}`
+  document.querySelector('#score').innerHTML = `YOUR SCORE: ${score}`
 }

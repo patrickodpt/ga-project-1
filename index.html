@@ -7,40 +7,42 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div id="wrapper">
-      <button id="playGame">PLAY BLACKJACK</button>
-    </div>
+    <div id="main-container">
 
-    <div id="gameBoard">
-      <h1>BLACKJACK</h1>
-
-      <div id="dealerDiv">
-        <h2>DEALER HAND</h2>
-        <div class="hand" id="dealerHand"></div>
+      <div id="wrapper">
+        <button id="playGame">PLAY BLACKJACK</button>
       </div>
 
-      <div id="center-board">
-        <button id="hit">HIT</button>
-        <div id="deck">
-          <img src="card-images/JPEG/blue_back.jpg" alt="deck of cards" id="deck-image" class="card">
+      <div id="gameBoard">
+        <h1><span id="score">YOUR SCORE: 0</span></h1>
+
+        <div id="dealerDiv">
+          <h2>DEALER HAND</h2>
+          <div class="hand" id="dealerHand"></div>
         </div>
-        <button id="stand">STAND</button>
-      </div>
 
-      <div id="playerDiv">
-        <h2>PLAYER HAND</h2>
-        <div class="hand" id="playerHand">
+        <div id="center-board">
+          <button id="hit">HIT</button>
+          <div id="deck">
+            <img src="card-images/JPEG/blue_back.jpg" alt="deck of cards" id="deck-image" class="card">
+          </div>
+          <button id="stand">STAND</button>
         </div>
-      </div>
 
-      <div id="info-row">
-        <div id="scoreDiv">MESSAGES GO HERE </div>
-        <span id="score">SCORE: </span>
+        <div id="playerDiv">
+          <h2>PLAYER HAND</h2>
+          <div id="playerGamePieces">
+            <div id="notificationDiv"> Good Luck!</div>
+            <div class="hand" id="playerHand"><!-- cards go here --></div>
+            <div id="playerHandValue">21</div>
+          </div>
+        </div>
+
+        <div id="info-row"></div>
       </div>
 
     </div>
-
     <script type="text/javascript" src="deck.js"></script>
-    <script type="text/javascript" src="blackjack.js"></script>
-  </body>
+   <script type="text/javascript" src="blackjack.js"></script>
+ </body>
 </html>
