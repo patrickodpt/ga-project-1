@@ -6,7 +6,6 @@ let deckImage = document.querySelector('#deck-image')
 
 //initialize global objects/arrays/functions
 let playerHand = [{name: 'playerHand'}];
-
 let dealerHand = [{name: 'dealerHand'}];
 
 let deckCopy = [...deck] //make copy to allow 6 decks to be created by shuffleTheDeck()
@@ -224,7 +223,7 @@ const winCheck = function () {
 };
 
 const resetHand = function (targetHand) {
-  document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove());//need to review syntax here.
+  document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove());
   targetHand = [targetHand[0]];
   return targetHand
 }

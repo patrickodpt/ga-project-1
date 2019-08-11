@@ -270,4 +270,13 @@ const over9000 = function () {
   newAudio.setAttribute('loop', "true")
   newAudio.autoplay = true;
   document.querySelector('body').appendChild(newAudio)
+
+  // https://dribbble.com/shots/2692480-Kame-House
+  document.querySelector('#gameBoard').style["background-image"] = "url('other-images/super-secret/kame.gif')"
+  document.querySelector('#gameBoard').style["background-size"] = "contain";
+  document.querySelector('#gameBoard').style["background-repeat"] = "no-repeat"
+
+  document.querySelectorAll('.rightBox').forEach(
+      elem => elem.style["background-image"] = "url('other-images/super-secret/4star.png')"
+  )
 }
