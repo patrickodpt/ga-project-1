@@ -6,7 +6,7 @@ Black jack is a simple card game where the goal is to have a higher value hand t
 
 ---
 
-### Features:
+## Features:
 + Score
 + Replayable
 + Displayed Hand Values
@@ -15,20 +15,20 @@ Black jack is a simple card game where the goal is to have a higher value hand t
 
 ---
 
-### Required Links:
+## Required Links:
 + [Blackjack - Webapp](https://patrickodpt.github.io/ga-project-1/ "Blackjack - Webapp")
 + [Project Board](https://github.com/patrickodpt/ga-project-1/projects/1 "Project Board")
 
 ---
 
-### Wireframes:
+## Wireframes:
 ![alt text](https://github.com/patrickodpt/ga-project-1/blob/master/other-images/wireframe1.jpg "Wireframe 1")
 
 ![alt text](https://github.com/patrickodpt/ga-project-1/blob/master/other-images/wireframe2.jpg "Wireframe 2")
 
 ---
 
-### Technologies Used:
+## Technologies Used:
 + HTML5, CSS, JS
 + Atom
 + GitHub Pages
@@ -36,7 +36,7 @@ Black jack is a simple card game where the goal is to have a higher value hand t
 
 ---
 
-### Future Development:
+## Future Development:
 + Add betting
 + Make mobile friendly
 + Add split option
