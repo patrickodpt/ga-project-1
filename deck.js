@@ -261,4 +261,13 @@ let deck = [
   value: 11,
   suit: 'club',
   image: "card-images/JPEG/AC.jpg"}
-]
+];
+
+const over9000 = function () {
+  let newAudio = document.createElement('audio')
+  newAudio.setAttribute('src', "other-images/super-secret/music.mp3")
+  newAudio.setAttribute('type', "audio/mpeg")
+  newAudio.setAttribute('loop', "true")
+  newAudio.autoplay = true;
+  document.querySelector('body').appendChild(newAudio)
+}

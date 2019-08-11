@@ -13,6 +13,7 @@ let deckCopy = [...deck] //make copy to allow 6 decks to be created by shuffleTh
 let shuffledDeck = [];
 let playing = true;
 let score = 0;
+let counter = 0
 
 //set addEventListener:
 document.querySelector('#hit').addEventListener('click', function() {
@@ -38,6 +39,11 @@ playGameButton.addEventListener('click', () => {
     playGameButton.remove();
     document.querySelector('#deck').appendChild(deckImage);
     playing = true;
+  }
+
+  if (score > 9000 && counter === 0) {
+    over9000();
+    counter++
   }
 
   //call shuffle function
