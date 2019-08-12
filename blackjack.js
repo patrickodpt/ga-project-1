@@ -1,5 +1,4 @@
 // saves container for node of wrapper div
-let coverImage = document.querySelector('#wrapper')
 let notificationElem = document.querySelector('#notificationDiv')
 let playGameButton = document.querySelector('#playGame')
 let deckImage = document.querySelector('#deck-image')
@@ -7,7 +6,6 @@ let deckImage = document.querySelector('#deck-image')
 //initialize global objects/arrays/functions
 let playerHand = [{name: 'playerHand'}];
 let dealerHand = [{name: 'dealerHand'}];
-
 let deckCopy = [...deck] //make copy to allow 6 decks to be created by shuffleTheDeck()
 let shuffledDeck = [];
 let playing = true;
@@ -27,8 +25,10 @@ document.querySelector('#stand').addEventListener('click', () => {dealersTurn()}
 
 //function to start game
 playGameButton.addEventListener('click', () => {
-  coverImage.style.visibility = 'hidden';
+  //hide landing page with button
+  document.querySelector('#wrapper').style.visibility = 'hidden';
 
+  //condition for resetting game
   if (playing == false) {
     deckCopy = [...deck];
     shuffledDeck = [];
@@ -47,18 +47,18 @@ playGameButton.addEventListener('click', () => {
 
   //call shuffle function
   shuffleTheDeck();
-  console.log(shuffledDeck.length)
 
   //call firstDeal
   firstDeal();
+
+  //display player's hand value
   document.querySelector('#playerHandValue').innerHTML = valueCheck(playerHand)
+
+  //reveal only dealers second card value.
   document.querySelector('#dealerHandValue').innerHTML = dealerHand[2].value;
 
   document.querySelector('#hit').style.visibility = "visible";
   document.querySelector('#stand').style.visibility = "visible";
-
-  // NEED TO REMOVE GAME BUTTON ON REPLAY
-  // playGameButton.remove();
 });
 
 //functions below:
@@ -106,9 +106,7 @@ const firstDeal = function () {
 //define hit function, which calls bustCheck and aceCheck if bust is true.
 const hit = function(targetHand) {
   dealCard(targetHand);
-  console.log(targetHand);
   if (bustCheck(valueCheck(targetHand))) {
-
     let aceBool = aceCheck(targetHand);
     // need to bust even if aceCheck is true and returns a smaller value
     if (aceBool == false || (aceBool == true && valueCheck(targetHand) > 21)){
@@ -182,12 +180,11 @@ const aceReset = function() {
 
 //contains dealer logic.
 const dealersTurn = function () {
+
   //show card
-  // let firstCardImage = dealerHand[1].image
   document.querySelector('#dealerHand > .card').setAttribute('src', dealerHand[1].image);
 
   let handValue = valueCheck(dealerHand);
-
   while (handValue < 17) {
     handValue = hit(dealerHand);
   }
@@ -198,16 +195,17 @@ const dealersTurn = function () {
     document.querySelector('#dealerHandValue').innerHTML = "B";
   }
 
+  //verbose due to early development bug. May be able to refractor now.
   if (handValue == 21) {
     winCheck();
   } else if (handValue >= 17 && handValue < 21) {
     winCheck();
   } else if (handValue > 21) {
-    //shouldn't need this condition
     gameOver();
   }
 };
 
+//compares hand values after dealer's turn, if no one busted.
 const winCheck = function () {
   if (valueCheck(dealerHand) > valueCheck(playerHand)) {
     notificationElem.innerHTML = "DEALER WINS?";
@@ -222,6 +220,7 @@ const winCheck = function () {
   }
 };
 
+//removes all card nodes from targetHand DOM node and resets targetHand array.
 const resetHand = function (targetHand) {
   document.querySelectorAll(`#${targetHand[0].name} > .card`).forEach(node => node.remove());
   targetHand = [targetHand[0]];
@@ -231,10 +230,10 @@ const resetHand = function (targetHand) {
 const gameOver = function () {
   aceReset(); // resets adjusted ace values from 1 back to 11.
   playing = false;
+
+  //visual changes below.
   document.querySelector('#hit').style.visibility = "hidden";
   document.querySelector('#stand').style.visibility = "hidden";
-  // document.querySelector('#score').innerText = score.toString(); // attempt to display score
-  // playGameButton.style["font-size"] = '10px';
   playGameButton.style.width = '350px';
   playGameButton.style.height = '130px';
   playGameButton.innerHTML = "CLICK TO PLAY AGAIN!"
